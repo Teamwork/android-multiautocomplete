@@ -17,8 +17,8 @@ Using **MultiAutoComplete** can be as easy as this:
 
 ```java
     List<SimpleItem> itemsList = ...
-    MultiAutoCompletePresenter presenter = MultiAutoCompletePresenter.Builder.from(itemsList);
-    presenter.onViewAttached(autoCompleteEditText);
+    MultiAutoComplete autoComplete = MultiAutoComplete.Build.from(itemsList);
+    autoComplete.onViewAttached(autoCompleteEditText);
 ```
 
 ### Advantages over using MultiAutoCompleteTextView directly
@@ -32,20 +32,20 @@ Using **MultiAutoComplete** can be as easy as this:
 ## Download
 Add dependency via **Gradle**:
 ```groovy
-compile 'com.teamwork:autocomplete:0.2.0'
+compile 'com.teamwork:android-multiautocomplete:0.2.0'
 ```
 or **Maven**:
 ```xml
 <dependency>
   <groupId>com.teamwork</groupId>
-  <artifactId>autocomplete</artifactId>
+  <artifactId>android-multiautocomplete</artifactId>
   <version>0.2.0</version>
   <type>pom</type>
 </dependency>
 ```
 
 ## Documentation
-Javadoc documentation is available here: https://teamwork.github.io/android-autocomplete/
+Javadoc documentation is available here: https://teamwork.github.io/android-multiautocomplete/
 
 ### Domain language
 To understand how to use the library quickly, keep in mind the definition of those recurring words in the API:
@@ -62,16 +62,16 @@ separator (i.e. a space, or a comma).
 If the token has a handle, i.e. _@johndoe_, its constraint will be _johndoe_.
 
 ### Components
-In order to customize **AutoComplete** to suit your needs, you're going to need to use or implement some or all of these interfaces:
+In order to customize **MultiAutoComplete** to suit your needs, you're going to need to use or implement some or all of these interfaces:
 * `MultiAutoComplete`: The main library component, it manages the type adapters and holds a reference to the `MultiAutoCompleteTextView`.
-It provides lifecycle methods to attach/detach the view itself and notify that the data set in one of the type adapters has changed.
+It provides lifecycle methods to attach/detach the view itself.
 It holds an "adapter of adapters" internally, with which the presenter can handle multiple data types in the same instance and decide which
 adapter to use for filtering depending on what kind of token is being typed in.
 
 To create an instance use one of the static factory methods in `MultiAutoComplete.Builder` or, for full customization,
 use the _Builder_ itself:
 ```java
-    MultiAutoCompletePresenter presenter = new MultiAutoCompletePresenter.Builder()
+    MultiAutoComplete autoComplete = new MultiAutoComplete.Builder()
         .tokenizer(tokenizer)
         .addTypeAdapter(typeAdapter1)
         .addTypeAdapter(typeAdapter2)
@@ -112,7 +112,7 @@ Alternatively, you can use the Android built-in `MultiAutoCompleteTextView.Comma
 or write your own `Tokenizer` for full customization of the token detection, including which characters and separators to support.
 
 #### Class diagram
-![](docs/MultiAutoComplete_class_diagram_v0.2.0.png)
+![](multiautocomplete/docs/MultiAutoComplete_class_diagram_v0.2.0.png)
 
 ### Sample App
 **TODO**
@@ -121,4 +121,18 @@ or write your own `Tokenizer` for full customization of the token detection, inc
 **TODO** examples
 
 ## License
-**TODO**
+```
+Copyright 2017 Teamwork.com
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
