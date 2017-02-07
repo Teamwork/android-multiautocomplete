@@ -1,0 +1,45 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'me.tatarka:gradle-retrolambda:3.4.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url "http://dl.bintray.com/teamwork/com.teamwork"
+        }
+    }
+
+    project.ext {
+        sharedCompileSdkVersion = 25
+        sharedMinSdkVersion = 18
+        sharedTargetSdkVersion = 25
+        sharedBuildToolsVersion = "25.0.2"
+    }
+}
+
+ext {
+    // dependency versions
+    versions = [
+            // production
+            supportLibrary    : '25.1.1',
+            // test
+            junit             : '4.12',
+            mockito           : '1.10.19',
+            robolectric       : '3.2.2',
+            supportTest       : '0.5'
+    ]
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

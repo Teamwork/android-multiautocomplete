@@ -1,0 +1,147 @@
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url "http://jcenter.bintray.com"
+        }
+    }
+    dependencies {
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath 'com.novoda:bintray-release:0.4.0'
+    }
+}
+
+def libraryVersion = "0.2.0"
+
+android {
+    compileSdkVersion project.ext.sharedCompileSdkVersion
+    buildToolsVersion project.ext.sharedBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion project.ext.sharedMinSdkVersion
+        targetSdkVersion project.ext.sharedTargetSdkVersion
+        versionCode 1
+        versionName libraryVersion
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled false
+        }
+    }
+    publishNonDefault true
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    // Google dependencies
+    compile "com.android.support:appcompat-v7:${versions.supportLibrary}"
+    compile "com.android.support:support-annotations:${versions.supportLibrary}"
+
+    // test dependencies
+    testCompile "junit:junit:${versions.junit}"
+    testCompile "org.mockito:mockito-core:${versions.mockito}"
+    testCompile "org.robolectric:robolectric:${versions.robolectric}"
+}
+
+def siteUrl = 'https://github.com/Teamwork/android-multiautocomplete'
+def gitUrl = 'https://github.com/Teamwork/android-multiautocomplete.git'
+def groupIdStr = 'com.teamwork'
+def artifactIdStr = 'android-multiautocomplete'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+/**
+ * To publish to Bintray Maven:
+ * ./gradlew clean build generateFullPom bintrayUpload
+ * More info at: https://github.com/novoda/bintray-release
+ */
+publish {
+    userOrg = 'teamwork'
+    groupId = groupIdStr
+    repoName = groupIdStr
+    artifactId = artifactIdStr
+    uploadName = artifactIdStr
+    publishVersion = libraryVersion
+    desc = 'MultiAutoCompleteTextView and Tokenizer utility library'
+    website = siteUrl
+    licences = ['MIT']
+    dryRun = false
+
+    bintrayUser = properties.getProperty("bintray.user")
+    bintrayKey = properties.getProperty("bintray.apikey")
+}
+
+task generateFullPom {
+    doLast {
+        pom {
+            project {
+                packaging 'aar'
+                artifactId artifactIdStr
+                groupId = groupIdStr
+                version libraryVersion
+
+                url siteUrl
+
+                // Set your license
+                licenses {
+                    license {
+                        name 'MIT'
+                        url 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'tw-marco-salis'
+                        name 'Marco Salis'
+                        email 'marco.salis@teamwork.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }.writeTo("$buildDir/publications/release/pom-default.xml")
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    title = "Android AutoComplete"
+    options.linkSource true
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError false
+}
+afterEvaluate {
+    javadoc.classpath += files(android.libraryVariants.collect { variant ->
+        variant.javaCompile.classpath.files
+    })
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
