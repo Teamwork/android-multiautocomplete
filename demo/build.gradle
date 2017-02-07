@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.teamwork.autocomplete.demo"
-        minSdkVersion 18
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -19,8 +19,11 @@ android {
 }
 
 dependencies {
-    compile "com.teamwork:android-multiautocomplete:0.2.0"
+    debugCompile project(path: ':multiautocomplete', configuration: 'debug')
+    releaseCompile "com.teamwork:android-multiautocomplete:0.2.0"
+
     compile "com.android.support:appcompat-v7:${versions.supportLibrary}"
+    compile "com.android.support:design:${versions.supportLibrary}"
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

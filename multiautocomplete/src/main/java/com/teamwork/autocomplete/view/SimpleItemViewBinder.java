@@ -68,7 +68,7 @@ public class SimpleItemViewBinder implements AutoCompleteViewBinder<SimpleItem> 
         public final ImageView imageView;
         public final TextView textView;
 
-        protected SimpleItemViewHolder(@NonNull View view) {
+        public SimpleItemViewHolder(@NonNull View view) {
             super(view);
             imageView = (ImageView) view.findViewById(R.id.imageView);
             textView = (TextView) view.findViewById(R.id.textView);

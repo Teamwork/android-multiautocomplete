@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MultiAutoComplete demo</string>
+    <string name="app_name">MultiAutoComplete</string>
+    <string name="simple_edit_text_hint">Type one or more country names</string>
+    <string name="edit_text_hint">Type a #countryname or @countrycode</string>
 </resources>
