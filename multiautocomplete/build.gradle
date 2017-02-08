@@ -17,7 +17,7 @@ buildscript {
     }
 }
 
-def libraryVersion = "0.2.0"
+def libraryVersion = "0.2.1"
 
 android {
     compileSdkVersion project.ext.sharedCompileSdkVersion
@@ -97,7 +97,6 @@ task generateFullPom {
 
                 url siteUrl
 
-                // Set your license
                 licenses {
                     license {
                         name 'Apache-2.0'

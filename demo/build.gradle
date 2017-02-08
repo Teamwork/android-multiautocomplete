@@ -19,8 +19,8 @@ android {
 }
 
 dependencies {
-    debugCompile project(path: ':multiautocomplete', configuration: 'debug')
-    releaseCompile "com.teamwork:android-multiautocomplete:0.2.0"
+    // compile project(path: ':multiautocomplete', configuration: 'debug')
+    compile "com.teamwork:android-multiautocomplete:0.2.1"
 
     compile "com.android.support:appcompat-v7:${versions.supportLibrary}"
     compile "com.android.support:design:${versions.supportLibrary}"
