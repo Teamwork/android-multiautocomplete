@@ -1,0 +1,7 @@
+com.teamwork.autocomplete
+com.teamwork.autocomplete.adapter
+com.teamwork.autocomplete.filter
+com.teamwork.autocomplete.model
+com.teamwork.autocomplete.tokenizer
+com.teamwork.autocomplete.util
+com.teamwork.autocomplete.view

@@ -120,13 +120,9 @@ task generateFullPom {
     }
 }
 
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
-    title = "Android AutoComplete"
+    destinationDir = file("../docs")
     options.linkSource true
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     failOnError false
@@ -136,6 +132,12 @@ afterEvaluate {
         variant.javaCompile.classpath.files
     })
 }
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
