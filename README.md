@@ -14,7 +14,7 @@ to simplify showing a drop down menu with suggestions for auto complete when the
 * High performance data indexing on a background thread to reduce filtering overhead
 
 
-![](multiautocomplete/docs/multiautocomplete_demo_screenshot_1.png)&nbsp;&nbsp;&nbsp;![](multiautocomplete/docs/multiautocomplete_demo_screenshot_2.png)
+![](docs/multiautocomplete_demo_screenshot_1.png)&nbsp;&nbsp;&nbsp;![](docs/multiautocomplete_demo_screenshot_2.png)
 
 Using **MultiAutoComplete** can be as easy as this:
 
@@ -115,7 +115,7 @@ Alternatively, you can use the Android built-in `MultiAutoCompleteTextView.Comma
 or write your own `Tokenizer` for full customization of the token detection, including which characters and separators to support.
 
 #### Class diagram
-![](multiautocomplete/docs/MultiAutoComplete_class_diagram_v0.2.0.png)
+![](docs/MultiAutoComplete_class_diagram_v0.2.0.png)
 
 ### Demo App
 The module `demo` contains simple usage examples of **MultiAutoComplete**.
