@@ -14,9 +14,6 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
-        maven {
-            url "http://dl.bintray.com/teamwork/com.teamwork"
-        }
     }
 
     project.ext {
@@ -31,12 +28,12 @@ ext {
     // dependency versions
     versions = [
             // production
-            supportLibrary    : '25.1.1',
+            supportLibrary: '25.1.1',
             // test
-            junit             : '4.12',
-            mockito           : '1.10.19',
-            robolectric       : '3.2.2',
-            supportTest       : '0.5'
+            junit         : '4.12',
+            mockito       : '1.10.19',
+            robolectric   : '3.2.2',
+            supportTest   : '0.5'
     ]
 }
 
