@@ -13,7 +13,8 @@ to simplify showing a drop down menu with suggestions for auto complete when the
 * Type-specific listeners to detect when a full token is added/removed from the text
 * High performance data indexing on a background thread to reduce filtering overhead
 
-**TODO** example animated gif
+
+![](multiautocomplete/docs/multiautocomplete_demo_screenshot_1.png)&nbsp;&nbsp;&nbsp;![](multiautocomplete/docs/multiautocomplete_demo_screenshot_2.png)
 
 Using **MultiAutoComplete** can be as easy as this:
 
@@ -116,11 +117,9 @@ or write your own `Tokenizer` for full customization of the token detection, inc
 #### Class diagram
 ![](multiautocomplete/docs/MultiAutoComplete_class_diagram_v0.2.0.png)
 
-### Sample App
-**TODO**
-
-### Usage
-**TODO** examples
+### Demo App
+The module `demo` contains simple usage examples of **MultiAutoComplete**.
+Pull the source code and run the app to check it out.
 
 ## License
 
