@@ -59,7 +59,7 @@ public interface TokenFilter<M> {
 
     /**
      * Return the token string representation of the passed item.
-     * Note that this could be different from the {@link M#toString()} representation, for example to add a handle when
+     * Note that this could be different from the {@link #toString()} representation, for example to add a handle when
      * supported.
      * <p>
      * This is used by the {@link Filter#convertResultToString(Object)} method for user suggestions and auto complete

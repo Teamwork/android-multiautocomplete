@@ -123,6 +123,7 @@ task generateFullPom {
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     destinationDir = file("../docs")
+    title = "Android AutoComplete"
     options.linkSource true
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     failOnError false
