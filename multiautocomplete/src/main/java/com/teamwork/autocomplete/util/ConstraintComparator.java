@@ -19,6 +19,7 @@ package com.teamwork.autocomplete.util;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
+import android.text.TextUtils;
 
 import java.util.Comparator;
 
@@ -44,6 +45,14 @@ public abstract class ConstraintComparator<T> implements Comparator<T> {
 
     public synchronized final void setConstraint(@Nullable CharSequence constraint) {
         this.constraint = constraint;
+    }
+
+    /**
+     * Return whether the currently set constraint requires sorting.
+     * The default implementation returns true when the constraint is not null or empty.
+     */
+    public synchronized boolean shouldCompare() {
+        return !TextUtils.isEmpty(constraint);
     }
 
     @Override

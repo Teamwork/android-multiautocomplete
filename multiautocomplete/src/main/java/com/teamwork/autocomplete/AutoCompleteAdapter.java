@@ -138,8 +138,10 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
                 ConstraintComparator comparator = typeAdapter.getFilter().getConstraintComparator();
                 if (comparator != null) {
                     comparator.setConstraint(constraint);
-                    //noinspection unchecked
-                    Collections.sort(filteredData, comparator);
+                    if (comparator.shouldCompare()) {
+                        //noinspection unchecked
+                        Collections.sort(filteredData, comparator);
+                    }
                 }
             } else {
                 // there is no original data without a type adapter: the adapter will be empty
