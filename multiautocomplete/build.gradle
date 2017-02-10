@@ -17,7 +17,7 @@ buildscript {
     }
 }
 
-def libraryVersion = "0.2.2"
+def libraryVersion = "0.2.3"
 
 android {
     compileSdkVersion project.ext.sharedCompileSdkVersion

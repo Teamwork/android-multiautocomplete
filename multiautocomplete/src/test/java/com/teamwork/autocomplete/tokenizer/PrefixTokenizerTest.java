@@ -36,11 +36,13 @@ public class PrefixTokenizerTest {
         assertThat(tokenizer.findTokenStart(" @te @tests", 5), is(1)); // match - first handle
         assertThat(tokenizer.findTokenStart(" @te @tests", 11), is(5)); // match - second handle
         assertThat(tokenizer.findTokenStart(" @te@tests", 10), is(1)); // match - first handle
+        assertThat(tokenizer.findTokenStart("\n@te@tests", 10), is(1)); // match - new line
 
         assertThat(tokenizer.findTokenStart(" ", 1), is(1)); // no match - spaces
         assertThat(tokenizer.findTokenStart(" @", 0), is(0)); // no match - space before
         assertThat(tokenizer.findTokenStart("tests:", 6), is(6)); // no match - spaces
         assertThat(tokenizer.findTokenStart("test@s:", 6), is(6)); // no match - @ after text
+        assertThat(tokenizer.findTokenStart("test@\ns:", 7), is(7)); // no match - new line
     }
 
     @Test
@@ -61,11 +63,13 @@ public class PrefixTokenizerTest {
         assertThat(tokenizer.findTokenEnd("@te @tests", 0), is(2)); // match - first handle
         assertThat(tokenizer.findTokenEnd("@te @tests ", 4), is(9)); // match - second handle
         assertThat(tokenizer.findTokenEnd("@te@tests ", 0), is(8)); // match - first handle
+        assertThat(tokenizer.findTokenEnd("\n@tetests\n", 1), is(8)); // match - new line
 
         assertThat(tokenizer.findTokenEnd(" ", 0), is(0)); // no match - spaces
         assertThat(tokenizer.findTokenEnd("@ ", 2), is(2)); // no match - space after
         assertThat(tokenizer.findTokenEnd("tests:", 0), is(6)); // no match - spaces
         assertThat(tokenizer.findTokenEnd("test@s:", 0), is(7)); // no match - @ after text
+        assertThat(tokenizer.findTokenEnd("test@\ns:", 0), is(4)); // no match - new line
     }
 
     @Test

@@ -38,6 +38,8 @@ import java.util.Arrays;
  */
 public class PrefixTokenizer implements MultiAutoCompleteTextView.Tokenizer {
 
+    private static final char NEW_LINE = '\n';
+
     private final char[] prefixes;
 
     public PrefixTokenizer(char prefix) {
@@ -59,7 +61,8 @@ public class PrefixTokenizer implements MultiAutoCompleteTextView.Tokenizer {
         char separator = getDefaultSeparator();
         for (int i = cursor - 1; i >= 0; i--) {
             if (matchesPrefix(text, i)) {
-                if (i == 0 || text.charAt(i - 1) == separator) {
+                char charAt; // consider separator or new line as a token start
+                if (i == 0 || (charAt = text.charAt(i - 1)) == separator || charAt == NEW_LINE) {
                     return i;
                 }
             }
@@ -85,10 +88,11 @@ public class PrefixTokenizer implements MultiAutoCompleteTextView.Tokenizer {
             return 0;
         }
 
-        // iterate forward until we get a space or the end of the string
+        // iterate forward until we get a space, a new line or the end of the string
         char separator = getDefaultSeparator();
         for (int i = cursor; i < length; i++) {
-            if (text.charAt(i) == separator) {
+            char charAt = text.charAt(i);
+            if (charAt == separator || charAt == NEW_LINE) {
                 return i == 0 ? 0 : i - 1;
             }
         }
