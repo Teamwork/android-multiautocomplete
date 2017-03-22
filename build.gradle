@@ -28,7 +28,7 @@ ext {
     // dependency versions
     versions = [
             // production
-            supportLibrary: '25.1.1',
+            supportLibrary: '25.3.0',
             // test
             junit         : '4.12',
             mockito       : '1.10.19',

@@ -40,7 +40,7 @@ public class MultiAutoCompleteEditText extends AppCompatMultiAutoCompleteTextVie
     public interface OnSelectionChangedListener {
 
         /**
-         * Called when the view's own {@link #onSelectionChanged(int, int)} is called.
+         * Called when the view's own {@link AppCompatMultiAutoCompleteTextView#onSelectionChanged(int, int)} is called.
          *
          * @return true if the view should start filtering when the cursor moves, false otherwise.
          */
