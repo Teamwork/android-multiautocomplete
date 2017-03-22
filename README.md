@@ -35,14 +35,14 @@ Using **MultiAutoComplete** can be as easy as this:
 ## Download
 Add dependency via **Gradle**:
 ```groovy
-compile 'com.teamwork:android-multiautocomplete:0.2.3'
+compile 'com.teamwork:android-multiautocomplete:0.2.4'
 ```
 or **Maven**:
 ```xml
 <dependency>
   <groupId>com.teamwork</groupId>
   <artifactId>android-multiautocomplete</artifactId>
-  <version>0.2.3</version>
+  <version>0.2.4</version>
   <type>pom</type>
 </dependency>
 ```

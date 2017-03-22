@@ -17,7 +17,7 @@ buildscript {
     }
 }
 
-def libraryVersion = "0.2.3"
+def libraryVersion = "0.2.4"
 
 android {
     compileSdkVersion project.ext.sharedCompileSdkVersion
@@ -123,7 +123,7 @@ task generateFullPom {
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     destinationDir = file("../docs")
-    title = "Android AutoComplete"
+    title = "Android AutoComplete 0.2"
     options.linkSource true
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     failOnError false
