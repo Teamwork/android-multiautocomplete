@@ -41,6 +41,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
@@ -66,6 +67,10 @@ class BaseTypeAdapterDelegate<M> extends BaseAdapter implements TypeAdapterDeleg
     // GuardedBy("lock")
     private final LinkedHashMap<CharSequence, M> itemsMap;
 
+    /* this is used to retain deleted items until we need them to call onTokenRemoved(CharSequence, M) */
+    // Concurrent map
+    private final ConcurrentMap<CharSequence, M> itemsScrapMap;
+
     /* this is a "snapshot" of the real data set, which might get off-sync for milliseconds after the items are set.
      * That is perfectly fine, since there is a very low chance of the user performing a search in that interval. */
     // GuardedBy("main thread")
@@ -81,6 +86,8 @@ class BaseTypeAdapterDelegate<M> extends BaseAdapter implements TypeAdapterDeleg
 
     // GuardedBy("main thread")
     private @Nullable OnTokensChangedListener<M> listener;
+    // GuardedBy("main thread")
+    private @Nullable CharSequence lastText;
 
     BaseTypeAdapterDelegate(@NonNull AutoCompleteViewBinder<M> viewBinder, @NonNull TokenFilter<M> tokenFilter) {
         this(Executors.newSingleThreadExecutor(), new Handler(Looper.getMainLooper()), viewBinder, tokenFilter);
@@ -96,6 +103,7 @@ class BaseTypeAdapterDelegate<M> extends BaseAdapter implements TypeAdapterDeleg
         this.tokenFilter = tokenFilter;
 
         this.itemsMap = new LinkedHashMap<>();
+        this.itemsScrapMap = new ConcurrentHashMap<>();
         this.filteredItems = new ArrayList<>();
 
         this.activeTokens = Collections.newSetFromMap(new ConcurrentHashMap<>());
@@ -119,12 +127,20 @@ class BaseTypeAdapterDelegate<M> extends BaseAdapter implements TypeAdapterDeleg
         mainThreadHandler.post(() -> {
             filteredItems.clear();
             notifyDataSetChanged();
+
+            // the data set has changed, we need to compute token changes even if the text is unchanged
+            if (lastText != null) {
+                computeTokenChangesAsync(lastText);
+            }
         });
     }
 
     @WorkerThread
     private void mapItems(@NonNull List<M> items) {
+        itemsScrapMap.clear();
+        itemsScrapMap.putAll(itemsMap);
         itemsMap.clear();
+
         TokenFilter<M> filter = getFilter();
         for (M item : items) {
             itemsMap.put(filter.toTokenString(item), item);
@@ -183,21 +199,26 @@ class BaseTypeAdapterDelegate<M> extends BaseAdapter implements TypeAdapterDeleg
     }
 
     @Override
-    public final void onTextChanged(@NonNull CharSequence text) {
-        Pattern pattern = getFilter().getValidTokenPattern();
-        if (pattern == null || listener == null) {
-            return;
-        }
-        //noinspection WrongThread
-        computationExecutor.execute(() -> computeTokenChanges(text, pattern));
-    }
-
-    @Override
     public final void setOnTokensChangedListener(@Nullable OnTokensChangedListener<M> listener) {
         if (getFilter().getValidTokenPattern() == null) {
             throw new IllegalStateException("The token filter getValidTokenPattern() must return a valid Pattern!");
         }
         this.listener = listener;
+    }
+
+    @Override
+    public final void onTextChanged(@NonNull CharSequence text) {
+        lastText = text;
+        computeTokenChangesAsync(text);
+    }
+
+    @MainThread
+    private void computeTokenChangesAsync(@NonNull CharSequence text) {
+        Pattern pattern = getFilter().getValidTokenPattern();
+        if (pattern == null || listener == null) {
+            return;
+        }
+        computationExecutor.execute(() -> computeTokenChanges(text, pattern));
     }
 
     @WorkerThread
@@ -233,17 +254,34 @@ class BaseTypeAdapterDelegate<M> extends BaseAdapter implements TypeAdapterDeleg
         if (listener == null) {
             return;
         }
-
         runLocked(lock.readLock(), () -> {
-            for (CharSequence token : removedTokens) {
-                M removedTokenItem = itemsMap.get(token);
-                if (removedTokenItem != null) listener.onTokenRemoved(token, removedTokenItem);
-            }
-            for (CharSequence token : addedTokens) {
-                M addedTokenItem = itemsMap.get(token);
-                if (addedTokenItem != null) listener.onTokenAdded(token, addedTokenItem);
-            }
+            notifyRemovedTokens(listener, removedTokens);
+            notifyAddedTokens(listener, addedTokens);
         });
+    }
+
+    @MainThread
+    private void notifyRemovedTokens(@NonNull OnTokensChangedListener<M> listener, @NonNull Collection<CharSequence> removedTokens) {
+        for (CharSequence token : removedTokens) {
+            M removedTokenItem = itemsMap.get(token);
+            if (removedTokenItem != null) {
+                listener.onTokenRemoved(token, removedTokenItem);
+            } else {
+                // retry from the scrap map: the item could have just been removed
+                removedTokenItem = itemsScrapMap.get(token);
+                if (removedTokenItem != null) {
+                    listener.onTokenRemoved(token, removedTokenItem);
+                }
+            }
+        }
+    }
+
+    @MainThread
+    private void notifyAddedTokens(@NonNull OnTokensChangedListener<M> listener, @NonNull Collection<CharSequence> addedTokens) {
+        for (CharSequence token : addedTokens) {
+            M addedTokenItem = itemsMap.get(token);
+            if (addedTokenItem != null) listener.onTokenAdded(token, addedTokenItem);
+        }
     }
 
     @VisibleForTesting LinkedHashMap<CharSequence, M> getItemsMap() {

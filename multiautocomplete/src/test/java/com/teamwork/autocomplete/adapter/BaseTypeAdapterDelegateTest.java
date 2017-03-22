@@ -59,7 +59,7 @@ public class BaseTypeAdapterDelegateTest {
             }
         };
 
-        dataset = Arrays.asList("Ireland", "Italy", "United Kingdom", "Spain");
+        dataset = Arrays.asList("Ireland", "Italy", "UnitedKingdom", "Spain");
 
         adapterDelegate = new BaseTypeAdapterDelegate<>(executor, handler, viewBinder, tokenFilter);
     }
@@ -103,28 +103,43 @@ public class BaseTypeAdapterDelegateTest {
         adapterDelegate.setItems(dataset);
 
         List<String> filtered = adapterDelegate.performFiltering("it");
-        assertThat(filtered, hasItems("Italy", "United Kingdom"));
+        assertThat(filtered, hasItems("Italy", "UnitedKingdom"));
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testOnTextChanged() throws Exception {
         adapterDelegate.setItems(dataset);
 
         OnTokensChangedListener mockListener = mock(OnTokensChangedListener.class);
-        //noinspection unchecked
         adapterDelegate.setOnTokensChangedListener(mockListener);
 
         adapterDelegate.onTextChanged(" Spain");
         ShadowLooper.runUiThreadTasks();
 
-        //noinspection unchecked
         verify(mockListener).onTokenAdded(eq("Spain"), eq("Spain"));
 
         adapterDelegate.onTextChanged(" Spai");
         ShadowLooper.runUiThreadTasks();
 
-        //noinspection unchecked
         verify(mockListener).onTokenRemoved(eq("Spain"), eq("Spain"));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testOnTextChanged_newData() throws Exception {
+        adapterDelegate.setItems(dataset);
+
+        OnTokensChangedListener mockListener = mock(OnTokensChangedListener.class);
+        adapterDelegate.setOnTokensChangedListener(mockListener);
+        adapterDelegate.onTextChanged(" Spain Ireland, Italy... UnitedKingdom Portugal");
+
+        adapterDelegate.setItems(Arrays.asList("UnitedKingdom", "Spain", "Portugal"));
+        ShadowLooper.runUiThreadTasks();
+
+        verify(mockListener).onTokenRemoved(eq("Ireland"), eq("Ireland"));
+        verify(mockListener).onTokenRemoved(eq("Italy"), eq("Italy"));
+        verify(mockListener).onTokenAdded(eq("Portugal"), eq("Portugal"));
     }
 
     @Test
