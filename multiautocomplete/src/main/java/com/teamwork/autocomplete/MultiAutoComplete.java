@@ -19,8 +19,10 @@ package com.teamwork.autocomplete;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.Filter;
 import android.widget.ListAdapter;
 import android.widget.MultiAutoCompleteTextView;
 
@@ -79,7 +81,9 @@ public interface MultiAutoComplete {
     class Builder {
 
         private final List<TypeAdapterDelegate> typeAdapters = new ArrayList<>();
+
         private MultiAutoCompleteTextView.Tokenizer tokenizer;
+        private @Nullable Delayer delayer;
 
         /**
          * Set the {@link MultiAutoCompleteTextView.Tokenizer} for the {@link MultiAutoComplete} being built.
@@ -90,6 +94,19 @@ public interface MultiAutoComplete {
          */
         public Builder tokenizer(@NonNull MultiAutoCompleteTextView.Tokenizer tokenizer) {
             this.tokenizer = tokenizer;
+            return this;
+        }
+
+        /**
+         * Set the {@link Delayer} to be used to delay filtering on this {@link MultiAutoComplete}.
+         *
+         * @param delayer The delayer to use.
+         * @return The builder for chaining calls.
+         * @see Delayer
+         * @see android.widget.Filter
+         */
+        public Builder delayer(@NonNull Delayer delayer) {
+            this.delayer = delayer;
             return this;
         }
 
@@ -115,7 +132,7 @@ public interface MultiAutoComplete {
          * Build the configured instance of this {@link MultiAutoComplete}.
          */
         public @NonNull MultiAutoComplete build() {
-            return new MultiAutoCompleteImpl(tokenizer, typeAdapters);
+            return new MultiAutoCompleteImpl(tokenizer, typeAdapters, delayer);
         }
     }
 
@@ -190,6 +207,28 @@ public interface MultiAutoComplete {
                     .addTypeAdapter(typeAdapter)
                     .build();
         }
+    }
+
+    /**
+     * Delegate interface for the hidden {@link Filter}<b>$Delayer</b> interface, used to delay the filtering of the
+     * text constraint on the {@link MultiAutoCompleteTextView}.
+     * <p>
+     * <b>Important note:</b> {@link MultiAutoComplete} uses reflection internally to access the state of the Android
+     * {@link Filter} and set the hidden delayer. Its behaviour is not guaranteed for future Android versions, and it
+     * will fail silently in some scenarios (an error message is logged into the LogCat console when that happens).
+     * <p>
+     * Implementations must be thread safe.
+     */
+    interface Delayer {
+
+        /**
+         * Get the delay with which the filtering will be performed after the constraint change from the user.
+         *
+         * @param constraint The constraint passed to {@link Filter#filter(CharSequence)}.
+         * @return The delay with which the filtering operation on the {@link MultiAutoCompleteEditText} will occur in
+         * milliseconds.
+         */
+        long getPostingDelay(CharSequence constraint);
     }
 
 }
