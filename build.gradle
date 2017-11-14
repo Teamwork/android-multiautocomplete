@@ -3,10 +3,10 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
-        classpath 'me.tatarka:gradle-retrolambda:3.4.0'
+        classpath 'com.android.tools.build:gradle:3.0.0'
     }
 }
 
@@ -14,13 +14,14 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        google()
     }
 
     project.ext {
-        sharedCompileSdkVersion = 25
-        sharedMinSdkVersion = 19
-        sharedTargetSdkVersion = 25
-        sharedBuildToolsVersion = "25.0.3"
+        sharedCompileSdkVersion = 27
+        sharedMinSdkVersion = 18
+        sharedTargetSdkVersion = 27
+        sharedBuildToolsVersion = "27.0.1"
     }
 }
 
@@ -28,7 +29,7 @@ ext {
     // dependency versions
     versions = [
             // production
-            supportLibrary: '25.3.1',
+            supportLibrary: '27.0.1',
             // test
             junit         : '4.12',
             mockito       : '1.10.19',

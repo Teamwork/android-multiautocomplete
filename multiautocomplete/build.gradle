@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.novoda.bintray-release'
 
@@ -13,11 +12,11 @@ buildscript {
     }
     dependencies {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        classpath 'com.novoda:bintray-release:0.4.0'
+        classpath 'com.novoda:bintray-release:0.5.0'
     }
 }
 
-def libraryVersion = "0.2.5"
+def libraryVersion = "0.2.6"
 
 android {
     compileSdkVersion project.ext.sharedCompileSdkVersion
@@ -38,7 +37,6 @@ android {
             minifyEnabled false
         }
     }
-    publishNonDefault true
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -48,13 +46,13 @@ android {
 
 dependencies {
     // Google dependencies
-    compile "com.android.support:appcompat-v7:${versions.supportLibrary}"
-    compile "com.android.support:support-annotations:${versions.supportLibrary}"
+    api "com.android.support:appcompat-v7:${versions.supportLibrary}"
+    api "com.android.support:support-annotations:${versions.supportLibrary}"
 
     // test dependencies
-    testCompile "junit:junit:${versions.junit}"
-    testCompile "org.mockito:mockito-core:${versions.mockito}"
-    testCompile "org.robolectric:robolectric:${versions.robolectric}"
+    testApi "junit:junit:${versions.junit}"
+    testApi "org.mockito:mockito-core:${versions.mockito}"
+    testApi "org.robolectric:robolectric:${versions.robolectric}"
 }
 
 def siteUrl = 'https://github.com/Teamwork/android-multiautocomplete'
@@ -125,13 +123,9 @@ task javadoc(type: Javadoc) {
     destinationDir = file("../docs")
     title = "Android AutoComplete 0.2"
     options.linkSource true
+    options.optionFiles << file('javadoc.options')
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     failOnError false
-}
-afterEvaluate {
-    javadoc.classpath += files(android.libraryVariants.collect { variant ->
-        variant.javaCompile.classpath.files
-    })
 }
 
 task sourcesJar(type: Jar) {

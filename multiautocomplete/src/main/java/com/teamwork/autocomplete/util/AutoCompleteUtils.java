@@ -60,6 +60,7 @@ public class AutoCompleteUtils {
      *
      * @param editText The {@link EditText}.
      */
+    @SuppressWarnings("unused")
     public static void selectAllText(EditText editText) {
         editText.setSelection(0, editText.getText().length());
     }
