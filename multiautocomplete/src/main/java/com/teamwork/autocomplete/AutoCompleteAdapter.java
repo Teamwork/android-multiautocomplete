@@ -16,6 +16,7 @@
 
 package com.teamwork.autocomplete;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -123,7 +124,7 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
      */
     private void injectDelayer(@NonNull AutoCompleteFilter filter, @NonNull MultiAutoComplete.Delayer delayer) {
         try {
-            Class<?> delayerInterface = Class.forName("android.widget.Filter$Delayer");
+            @SuppressLint("PrivateApi") Class<?> delayerInterface = Class.forName("android.widget.Filter$Delayer");
             Object delayerInstance = java.lang.reflect.Proxy.newProxyInstance(
                     delayerInterface.getClassLoader(),
                     new Class[] { delayerInterface },
@@ -138,9 +139,19 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
             Method method = filter.getClass().getMethod("setDelayer", delayerInterface);
             method.setAccessible(true);
             method.invoke(filter, delayerInstance);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | ClassNotFoundException e) {
-            Log.e(MultiAutoComplete.class.getSimpleName(), "Reflection inject attempt of Delayer failed");
+        } catch (NoSuchMethodException e) {
+            logReflectionException();
+        } catch (InvocationTargetException e) {
+            logReflectionException();
+        } catch (IllegalAccessException e) {
+            logReflectionException();
+        } catch (ClassNotFoundException e) {
+            logReflectionException();
         }
+    }
+
+    private void logReflectionException() {
+        Log.e(MultiAutoComplete.class.getSimpleName(), "Reflection inject attempt of Delayer failed");
     }
 
     /**

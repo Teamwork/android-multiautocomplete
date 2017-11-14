@@ -10,8 +10,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
@@ -46,11 +44,7 @@ public class AutoCompleteAdapterTest {
 
         dataset = Arrays.asList("Ireland", "Italy", "United Kingdom", "Spain");
 
-        when(viewBinder.getItemId(anyObject())).then(new Answer<Long>() {
-            @Override public Long answer(InvocationOnMock invocation) throws Throwable {
-                return (long) invocation.getArguments()[0].hashCode();
-            }
-        });
+        when(viewBinder.getItemId(anyObject())).then(invocation -> (long) invocation.getArguments()[0].hashCode());
         spiedFilter = spy(new SimpleTokenFilter<>());
         typeAdapter = AutoCompleteTypeAdapter.Build.from(viewBinder, spiedFilter);
         typeAdapter.setItems(dataset);
