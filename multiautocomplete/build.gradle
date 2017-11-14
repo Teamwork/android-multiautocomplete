@@ -46,13 +46,13 @@ android {
 
 dependencies {
     // Google dependencies
-    compile "com.android.support:appcompat-v7:${versions.supportLibrary}"
-    compile "com.android.support:support-annotations:${versions.supportLibrary}"
+    api "com.android.support:appcompat-v7:${versions.supportLibrary}"
+    api "com.android.support:support-annotations:${versions.supportLibrary}"
 
     // test dependencies
-    testCompile "junit:junit:${versions.junit}"
-    testCompile "org.mockito:mockito-core:${versions.mockito}"
-    testCompile "org.robolectric:robolectric:${versions.robolectric}"
+    testApi "junit:junit:${versions.junit}"
+    testApi "org.mockito:mockito-core:${versions.mockito}"
+    testApi "org.robolectric:robolectric:${versions.robolectric}"
 }
 
 def siteUrl = 'https://github.com/Teamwork/android-multiautocomplete'
