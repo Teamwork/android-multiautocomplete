@@ -18,7 +18,9 @@ package com.teamwork.autocomplete;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,8 @@ import com.teamwork.autocomplete.adapter.NullTypeAdapterDelegate;
 import com.teamwork.autocomplete.adapter.TypeAdapterDelegate;
 import com.teamwork.autocomplete.util.ConstraintComparator;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,8 +42,7 @@ import java.util.List;
  * Implementation of an "adapter of adapters" that is set into the {@link android.widget.MultiAutoCompleteTextView} to
  * manage and filter multiple data sets.
  * <p>
- * The {@link Filter} component delegates returning the autocomplete filtered results to one of the registered
- * adapters.
+ * The {@link Filter} component delegates returning the autocomplete filtered results to one of the registered adapters.
  *
  * @author Marco Salis
  */
@@ -49,15 +52,19 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
 
     private final LayoutInflater layoutInflater;
     private final List<TypeAdapterDelegate> typeAdapters;
+    private final @Nullable MultiAutoComplete.Delayer delayer;
 
     private TypeAdapterDelegate currentTypeAdapter = nullTypeAdapter;
     private AutoCompleteFilter filter;
 
     private CharSequence currentConstraint;
 
-    AutoCompleteAdapter(@NonNull Context context, @NonNull List<TypeAdapterDelegate> typeAdapters) {
+    AutoCompleteAdapter(@NonNull Context context,
+                        @NonNull List<TypeAdapterDelegate> typeAdapters,
+                        @Nullable MultiAutoComplete.Delayer delayer) {
         this.layoutInflater = LayoutInflater.from(context);
         this.typeAdapters = typeAdapters;
+        this.delayer = delayer;
     }
 
     @Override
@@ -102,8 +109,38 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
     public @NonNull Filter getFilter() {
         if (filter == null) {
             filter = new AutoCompleteFilter();
+            if (delayer != null) {
+                injectDelayer(filter, delayer);
+            }
         }
         return filter;
+    }
+
+    /**
+     * {@link Filter}s implementation of a delayer is unfortunately hidden in the Android SDK, despite it having been
+     * there, used and unchanged, for ages. We use reflection and {@link java.lang.reflect.Proxy} to create an instance
+     * of the Delayer class which delegates to our implementation of {@link MultiAutoComplete.Delayer}.
+     */
+    private void injectDelayer(@NonNull AutoCompleteFilter filter, @NonNull MultiAutoComplete.Delayer delayer) {
+        try {
+            Class<?> delayerInterface = Class.forName("android.widget.Filter$Delayer");
+            Object delayerInstance = java.lang.reflect.Proxy.newProxyInstance(
+                    delayerInterface.getClassLoader(),
+                    new Class[] { delayerInterface },
+                    (proxy, method, args) -> {
+                        if (method.getName().equals("getPostingDelay")) {
+                            CharSequence constraint = (CharSequence) args[0];
+                            return delayer.getPostingDelay(constraint);
+                        }
+                        return null;
+                    });
+
+            Method method = filter.getClass().getMethod("setDelayer", delayerInterface);
+            method.setAccessible(true);
+            method.invoke(filter, delayerInstance);
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | ClassNotFoundException e) {
+            Log.e(MultiAutoComplete.class.getSimpleName(), "Reflection inject attempt of Delayer failed");
+        }
     }
 
     /**

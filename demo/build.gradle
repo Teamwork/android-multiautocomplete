@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.1"
+    compileSdkVersion project.ext.sharedCompileSdkVersion
+    buildToolsVersion project.ext.sharedBuildToolsVersion
     defaultConfig {
         applicationId "com.teamwork.autocomplete.demo"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion project.ext.sharedTargetSdkVersion
         versionCode 1
-        versionName "1.0"
+        versionName "0.2.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,7 +25,7 @@ android {
 
 dependencies {
     compile project(path: ':multiautocomplete')
-    // compile "com.teamwork:android-multiautocomplete:0.2.5"
+    // compile "com.teamwork:android-multiautocomplete:0.2.6"
 
     compile "com.android.support:appcompat-v7:${versions.supportLibrary}"
     compile "com.android.support:design:${versions.supportLibrary}"

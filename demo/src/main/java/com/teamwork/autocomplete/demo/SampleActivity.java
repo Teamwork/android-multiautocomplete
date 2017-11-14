@@ -110,6 +110,7 @@ public class SampleActivity extends AppCompatActivity implements OnTokensChanged
                 .tokenizer(new PrefixTokenizer('@', '#'))
                 .addTypeAdapter(nameTypeAdapter)
                 .addTypeAdapter(codeTypeAdapter)
+                .delayer(new TestDelayer())
                 .build();
     }
 
@@ -247,6 +248,12 @@ public class SampleActivity extends AppCompatActivity implements OnTokensChanged
         @Override
         public @NonNull CharSequence toTokenString(@NonNull Country item) {
             return String.format(Locale.US, "%c%s", handleChar, item.countryCode);
+        }
+    }
+
+    private static class TestDelayer implements MultiAutoComplete.Delayer {
+        @Override public long getPostingDelay(CharSequence constraint) {
+            return 10;
         }
     }
 

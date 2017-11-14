@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android-multiautocomplete.iml" filepath="$PROJECT_DIR$/android-multiautocomplete.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-multiautocomplete.iml" filepath="$PROJECT_DIR$/android-multiautocomplete.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multiautocomplete/multiautocomplete.iml" filepath="$PROJECT_DIR$/multiautocomplete/multiautocomplete.iml" />
       <module fileurl="file://$PROJECT_DIR$/multiautocomplete/multiautocomplete.iml" filepath="$PROJECT_DIR$/multiautocomplete/multiautocomplete.iml" />
     </modules>
   </component>

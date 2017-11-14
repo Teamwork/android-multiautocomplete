@@ -30,19 +30,20 @@ Using **MultiAutoComplete** can be as easy as this:
 * No need to write a (_thread-safe_) `Filter` subclass for the adapter
 * No need to write an adapter composition pattern to support multiple types
 * No need to write decorator objects to merge different data types in a single adapter
+* Support for the hidden Android API `Filter$Delayer` through reflection (new in _0.2.5_)
 * (coming soon) Ability to easily swap between `AutoCompleteTextView` and `MultiAutoCompleteTextView`
 
 ## Download
 Add dependency via **Gradle**:
 ```groovy
-compile 'com.teamwork:android-multiautocomplete:0.2.6'
+compile 'com.teamwork:android-multiautocomplete:0.2.5'
 ```
 or **Maven**:
 ```xml
 <dependency>
   <groupId>com.teamwork</groupId>
   <artifactId>android-multiautocomplete</artifactId>
-  <version>0.2.6</version>
+  <version>0.2.5</version>
   <type>pom</type>
 </dependency>
 ```

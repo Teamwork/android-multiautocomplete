@@ -39,7 +39,7 @@ public class MultiAutoCompleteImplTest {
         MockitoAnnotations.initMocks(this);
 
         when(editText.getContext()).thenReturn(RuntimeEnvironment.application);
-        autoComplete = new MultiAutoCompleteImpl(tokenizer, Arrays.asList(typeAdapter1, typeAdapter2));
+        autoComplete = new MultiAutoCompleteImpl(tokenizer, Arrays.asList(typeAdapter1, typeAdapter2), null);
     }
 
     @Test

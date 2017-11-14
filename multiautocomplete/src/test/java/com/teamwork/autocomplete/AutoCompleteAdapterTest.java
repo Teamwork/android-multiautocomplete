@@ -32,10 +32,12 @@ import static org.mockito.Mockito.when;
 public class AutoCompleteAdapterTest {
 
     @Mock AutoCompleteViewBinder<String> viewBinder;
+    @Mock MultiAutoComplete.Delayer delayer;
 
     private AutoCompleteTypeAdapter<String> typeAdapter;
     private List<String> dataset;
     private AutoCompleteAdapter autoCompleteAdapter;
+    @SuppressWarnings("FieldCanBeLocal")
     private SimpleTokenFilter<String> spiedFilter;
 
     @Before
@@ -52,7 +54,8 @@ public class AutoCompleteAdapterTest {
         spiedFilter = spy(new SimpleTokenFilter<>());
         typeAdapter = AutoCompleteTypeAdapter.Build.from(viewBinder, spiedFilter);
         typeAdapter.setItems(dataset);
-        autoCompleteAdapter = new AutoCompleteAdapter(RuntimeEnvironment.application, Collections.singletonList((TypeAdapterDelegate) typeAdapter));
+        autoCompleteAdapter = new AutoCompleteAdapter(RuntimeEnvironment.application,
+                Collections.singletonList((TypeAdapterDelegate) typeAdapter), delayer);
     }
 
     @Test

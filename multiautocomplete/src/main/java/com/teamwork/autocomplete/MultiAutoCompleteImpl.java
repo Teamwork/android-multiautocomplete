@@ -44,21 +44,24 @@ class MultiAutoCompleteImpl
 
     private final Tokenizer tokenizer;
     private final List<TypeAdapterDelegate> typeAdapters;
+    private final @Nullable Delayer delayer;
 
     private @Nullable MultiAutoCompleteEditText editText;
     private @Nullable AutoCompleteAdapter adapter;
 
     MultiAutoCompleteImpl(@NonNull Tokenizer tokenizer,
-                          @NonNull List<TypeAdapterDelegate> typeAdapters) {
+                          @NonNull List<TypeAdapterDelegate> typeAdapters,
+                          @Nullable Delayer delayer) {
         this.tokenizer = tokenizer;
         this.typeAdapters = Collections.unmodifiableList(new CopyOnWriteArrayList<>(typeAdapters));
+        this.delayer = delayer;
     }
 
     @Override
     public void onViewAttached(@NonNull MultiAutoCompleteEditText view) {
         editText = view;
 
-        adapter = new AutoCompleteAdapter(view.getContext(), typeAdapters);
+        adapter = new AutoCompleteAdapter(view.getContext(), typeAdapters, delayer);
         editText.setAdapter(adapter);
         editText.setTokenizer(tokenizer);
         editText.addTextChangedListener(this);
