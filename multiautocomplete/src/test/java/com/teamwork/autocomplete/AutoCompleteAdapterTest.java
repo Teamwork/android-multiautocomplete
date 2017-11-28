@@ -29,6 +29,8 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricTestRunner.class)
 public class AutoCompleteAdapterTest {
 
+    private static final int ASYNC_FILTER_WAIT_MS = 100;
+
     @Mock AutoCompleteViewBinder<String> viewBinder;
     @Mock MultiAutoComplete.Delayer delayer;
 
@@ -57,18 +59,18 @@ public class AutoCompleteAdapterTest {
         assertThat(autoCompleteAdapter.getCount(), is(0));
 
         autoCompleteAdapter.getFilter().filter("");
-        Thread.sleep(50); // async filter
+        waitOnFilter();
         assertThat(autoCompleteAdapter.getCount(), is(dataset.size()));
 
         autoCompleteAdapter.getFilter().filter("it");
-        Thread.sleep(50); // async filter
+        waitOnFilter();
         assertThat(autoCompleteAdapter.getCount(), is(2));
     }
 
     @Test
     public void getItem() throws Exception {
         autoCompleteAdapter.getFilter().filter("it");
-        Thread.sleep(50); // async filter
+        waitOnFilter();
         assertThat(autoCompleteAdapter.getItem(0), is("Italy"));
         assertThat(autoCompleteAdapter.getItem(1), is("United Kingdom"));
     }
@@ -76,7 +78,7 @@ public class AutoCompleteAdapterTest {
     @Test
     public void getItemId() throws Exception {
         autoCompleteAdapter.getFilter().filter("it");
-        Thread.sleep(50); // async filter
+        waitOnFilter();
         assertThat(autoCompleteAdapter.getItemId(0), is((long) "Italy".hashCode()));
         assertThat(autoCompleteAdapter.getItemId(1), is((long) "United Kingdom".hashCode()));
     }
@@ -86,7 +88,7 @@ public class AutoCompleteAdapterTest {
         assertThat(autoCompleteAdapter.getViewTypeCount(), is(2));
 
         autoCompleteAdapter.getFilter().filter("");
-        Thread.sleep(50); // async filter
+        waitOnFilter();
         assertThat(autoCompleteAdapter.getViewTypeCount(), is(2));
     }
 
@@ -95,7 +97,7 @@ public class AutoCompleteAdapterTest {
         assertThat(autoCompleteAdapter.getItemViewType(0), is(1));
 
         autoCompleteAdapter.getFilter().filter("");
-        Thread.sleep(50); // async filter
+        waitOnFilter();
         assertThat(autoCompleteAdapter.getItemViewType(0), is(0));
     }
 
@@ -104,12 +106,16 @@ public class AutoCompleteAdapterTest {
         assertThat(autoCompleteAdapter.getFilter(), notNullValue());
 
         autoCompleteAdapter.getFilter().filter("it");
-        Thread.sleep(50); // async filter
+        waitOnFilter();
 
         verify(((TypeAdapterDelegate) typeAdapter).getFilter()).stripHandle(eq("it"));
         verify(((TypeAdapterDelegate) typeAdapter).getFilter()).supportsToken("it");
         //noinspection unchecked
         verify(((TypeAdapterDelegate) typeAdapter).getFilter()).performFiltering("it", dataset);
+    }
+
+    private void waitOnFilter() throws InterruptedException {
+        Thread.sleep(ASYNC_FILTER_WAIT_MS); // async filter
     }
 
 }
