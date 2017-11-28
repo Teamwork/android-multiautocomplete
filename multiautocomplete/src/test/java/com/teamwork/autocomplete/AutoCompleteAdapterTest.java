@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricTestRunner.class)
 public class AutoCompleteAdapterTest {
 
-    private static final int ASYNC_FILTER_WAIT_MS = 100;
+    private static final int ASYNC_FILTER_WAIT_MS = 200;
 
     @Mock AutoCompleteViewBinder<String> viewBinder;
     @Mock MultiAutoComplete.Delayer delayer;
