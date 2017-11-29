@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 @RunWith(RobolectricTestRunner.class)
 public class AutoCompleteAdapterTest {
 
-    private static final int ASYNC_FILTER_WAIT_MS = 200;
+    private static final int ASYNC_FILTER_WAIT_MS = 300;
 
     @Mock AutoCompleteViewBinder<String> viewBinder;
     @Mock MultiAutoComplete.Delayer delayer;
@@ -58,10 +58,6 @@ public class AutoCompleteAdapterTest {
     public void getCount() throws Exception {
         assertThat(autoCompleteAdapter.getCount(), is(0));
 
-        autoCompleteAdapter.getFilter().filter("");
-        waitOnFilter();
-        assertThat(autoCompleteAdapter.getCount(), is(dataset.size()));
-
         autoCompleteAdapter.getFilter().filter("it");
         waitOnFilter();
         assertThat(autoCompleteAdapter.getCount(), is(2));
@@ -71,23 +67,26 @@ public class AutoCompleteAdapterTest {
     public void getItem() throws Exception {
         autoCompleteAdapter.getFilter().filter("it");
         waitOnFilter();
+
         assertThat(autoCompleteAdapter.getItem(0), is("Italy"));
         assertThat(autoCompleteAdapter.getItem(1), is("United Kingdom"));
     }
 
     @Test
     public void getItemId() throws Exception {
-        autoCompleteAdapter.getFilter().filter("it");
+        autoCompleteAdapter.getFilter().filter("");
         waitOnFilter();
-        assertThat(autoCompleteAdapter.getItemId(0), is((long) "Italy".hashCode()));
-        assertThat(autoCompleteAdapter.getItemId(1), is((long) "United Kingdom".hashCode()));
+
+        assertThat(autoCompleteAdapter.getItemId(0), is((long) "Ireland".hashCode()));
+        assertThat(autoCompleteAdapter.getItemId(3), is((long) "Spain".hashCode()));
     }
 
     @Test
     public void getViewTypeCount() throws Exception {
         assertThat(autoCompleteAdapter.getViewTypeCount(), is(2));
 
-        autoCompleteAdapter.getFilter().filter("");
+        //noinspection unchecked
+        ((TypeAdapterDelegate) typeAdapter).getFilter().performFiltering("it", dataset);
         waitOnFilter();
         assertThat(autoCompleteAdapter.getViewTypeCount(), is(2));
     }
