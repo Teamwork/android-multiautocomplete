@@ -10,21 +10,6 @@ buildscript {
     }
 }
 
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-        google()
-    }
-
-    project.ext {
-        sharedCompileSdkVersion = 27
-        sharedMinSdkVersion = 18
-        sharedTargetSdkVersion = 27
-        sharedBuildToolsVersion = "27.0.1"
-    }
-}
-
 ext {
     // dependency versions
     versions = [
@@ -36,6 +21,31 @@ ext {
             robolectric   : '3.5.1',
             supportTest   : '1.0.1'
     ]
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        google()
+    }
+
+    configurations {
+        javadocDeps
+    }
+
+    project.ext {
+        sharedCompileSdkVersion = 27
+        sharedMinSdkVersion = 18
+        sharedTargetSdkVersion = 27
+        sharedBuildToolsVersion = "27.0.1"
+    }
+
+
+    dependencies {
+        // prevents dependency warnings when building Javadoc
+        javadocDeps "com.android.support:support-annotations:${versions.supportLibrary}"
+    }
 }
 
 task clean(type: Delete) {

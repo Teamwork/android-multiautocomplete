@@ -125,6 +125,7 @@ task javadoc(type: Javadoc) {
     options.linkSource true
     options.optionFiles << file('javadoc.options')
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.javadocDeps
     failOnError false
 }
 
