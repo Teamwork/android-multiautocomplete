@@ -14,7 +14,7 @@ ext {
     // dependency versions
     versions = [
             // production
-            supportLibrary: '27.0.1',
+            supportLibrary: '27.0.2',
             // test
             junit         : '4.12',
             mockito       : '2.11.0',
@@ -38,7 +38,7 @@ allprojects {
         sharedCompileSdkVersion = 27
         sharedMinSdkVersion = 18
         sharedTargetSdkVersion = 27
-        sharedBuildToolsVersion = "27.0.1"
+        sharedBuildToolsVersion = "27.0.2"
     }
 
 
