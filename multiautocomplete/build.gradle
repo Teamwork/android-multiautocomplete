@@ -77,7 +77,7 @@ publish {
     publishVersion = libraryVersion
     desc = 'MultiAutoCompleteTextView and Tokenizer utility library'
     website = siteUrl
-    licences = ['MIT']
+    licences = ['Apache 2.0']
     dryRun = false
 
     bintrayUser = properties.getProperty("bintray.user")
