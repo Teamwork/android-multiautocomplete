@@ -12,11 +12,11 @@ buildscript {
     }
     dependencies {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-        classpath 'com.novoda:bintray-release:0.5.0'
+        classpath 'com.novoda:bintray-release:0.9'
     }
 }
 
-def libraryVersion = "0.2.6"
+def libraryVersion = "0.2.7-alpha"
 
 android {
     compileSdkVersion project.ext.sharedCompileSdkVersion
@@ -50,9 +50,9 @@ dependencies {
     api "com.android.support:support-annotations:${versions.supportLibrary}"
 
     // test dependencies
-    testApi "junit:junit:${versions.junit}"
-    testApi "org.mockito:mockito-core:${versions.mockito}"
-    testApi "org.robolectric:robolectric:${versions.robolectric}"
+    testImplementation "junit:junit:${versions.junit}"
+    testImplementation "org.mockito:mockito-core:${versions.mockito}"
+    testImplementation "org.robolectric:robolectric:${versions.robolectric}"
 }
 
 def siteUrl = 'https://github.com/Teamwork/android-multiautocomplete'

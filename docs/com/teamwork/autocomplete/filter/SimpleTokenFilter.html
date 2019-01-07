@@ -221,7 +221,8 @@ extends <a href="../../../../com/teamwork/autocomplete/filter/BaseTokenFilter.ht
 <ul class="blockList">
 <li class="blockList">
 <h4>supportsToken</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/filter/SimpleTokenFilter.html#line.33">supportsToken</a>(java.lang.CharSequence&nbsp;token)</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/filter/SimpleTokenFilter.html#line.33">supportsToken</a>(@NonNull
+                             java.lang.CharSequence&nbsp;token)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/filter/TokenFilter.html#supportsToken-java.lang.CharSequence-">TokenFilter</a></code></span></div>
 <div class="block">Check whether the provided token is supported by the filter.
  When true is returned, the <a href="../../../../com/teamwork/autocomplete/filter/TokenFilter.html" title="interface in com.teamwork.autocomplete.filter"><code>TokenFilter</code></a> can perform filtering and recognize the items that are valid for
@@ -240,7 +241,9 @@ extends <a href="../../../../com/teamwork/autocomplete/filter/BaseTokenFilter.ht
 <ul class="blockListLast">
 <li class="blockList">
 <h4>stripHandle</h4>
-<pre>public&nbsp;java.lang.CharSequence&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/filter/SimpleTokenFilter.html#line.38">stripHandle</a>(java.lang.CharSequence&nbsp;token)</pre>
+<pre>@NonNull
+public&nbsp;java.lang.CharSequence&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/filter/SimpleTokenFilter.html#line.38">stripHandle</a>(@NonNull
+                                                   java.lang.CharSequence&nbsp;token)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/filter/TokenFilter.html#stripHandle-java.lang.CharSequence-">TokenFilter</a></code></span></div>
 <div class="block">Remove the token handle from the passed token if present.</div>
 <dl>

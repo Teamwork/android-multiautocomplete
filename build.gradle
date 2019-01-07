@@ -6,7 +6,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.2.1'
     }
 }
 
@@ -38,7 +38,7 @@ allprojects {
         sharedCompileSdkVersion = 27
         sharedMinSdkVersion = 18
         sharedTargetSdkVersion = 27
-        sharedBuildToolsVersion = "27.0.2"
+        sharedBuildToolsVersion = "28.0.3"
     }
 
 
