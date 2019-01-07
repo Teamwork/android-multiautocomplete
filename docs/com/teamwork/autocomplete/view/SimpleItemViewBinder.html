@@ -258,7 +258,8 @@ implements <a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewB
 <ul class="blockList">
 <li class="blockList">
 <h4>getItemId</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/view/SimpleItemViewBinder.html#line.47">getItemId</a>(<a href="../../../../com/teamwork/autocomplete/model/SimpleItem.html" title="class in com.teamwork.autocomplete.model">SimpleItem</a>&nbsp;item)</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/view/SimpleItemViewBinder.html#line.47">getItemId</a>(@NonNull
+                      <a href="../../../../com/teamwork/autocomplete/model/SimpleItem.html" title="class in com.teamwork.autocomplete.model">SimpleItem</a>&nbsp;item)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewBinder.html#getItemId-Model-">AutoCompleteViewBinder</a></code></span></div>
 <div class="block">Return a numeric identifier for the passed model.
  The returned value must be unique and "stable" (see <code>BaseAdapter.hasStableIds()</code>.</div>
@@ -294,7 +295,9 @@ implements <a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewB
 <ul class="blockList">
 <li class="blockList">
 <h4>getViewHolder</h4>
-<pre>public&nbsp;<a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewHolder.html" title="class in com.teamwork.autocomplete.view">AutoCompleteViewHolder</a>&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/view/SimpleItemViewBinder.html#line.57">getViewHolder</a>(android.view.View&nbsp;view)</pre>
+<pre>@NonNull
+public&nbsp;<a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewHolder.html" title="class in com.teamwork.autocomplete.view">AutoCompleteViewHolder</a>&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/view/SimpleItemViewBinder.html#line.57">getViewHolder</a>(@NonNull
+                                                     android.view.View&nbsp;view)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewBinder.html#getViewHolder-android.view.View-">AutoCompleteViewBinder</a></code></span></div>
 <div class="block">Return a layout-specific implementation of <a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewHolder.html" title="class in com.teamwork.autocomplete.view"><code>AutoCompleteViewHolder</code></a> for the adapter to access sub-views
  faster, following Android's suggested view binder pattern.</div>
@@ -314,8 +317,11 @@ implements <a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewB
 <ul class="blockList">
 <li class="blockList">
 <h4>bindData</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/view/SimpleItemViewBinder.html#line.62">bindData</a>(<a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewHolder.html" title="class in com.teamwork.autocomplete.view">AutoCompleteViewHolder</a>&nbsp;viewHolder,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/view/SimpleItemViewBinder.html#line.62">bindData</a>(@NonNull
+                     <a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewHolder.html" title="class in com.teamwork.autocomplete.view">AutoCompleteViewHolder</a>&nbsp;viewHolder,
+                     @NonNull
                      <a href="../../../../com/teamwork/autocomplete/model/SimpleItem.html" title="class in com.teamwork.autocomplete.model">SimpleItem</a>&nbsp;item,
+                     @Nullable
                      java.lang.CharSequence&nbsp;constraint)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewBinder.html#bindData-com.teamwork.autocomplete.view.AutoCompleteViewHolder-Model-java.lang.CharSequence-">AutoCompleteViewBinder</a></code></span></div>
 <div class="block">Bind the data for the passed model to the view held from the <a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewHolder.html" title="class in com.teamwork.autocomplete.view"><code>AutoCompleteViewHolder</code></a> implementation,
@@ -337,7 +343,9 @@ implements <a href="../../../../com/teamwork/autocomplete/view/AutoCompleteViewB
 <ul class="blockListLast">
 <li class="blockList">
 <h4>onImageViewBind</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/view/SimpleItemViewBinder.html#line.80">onImageViewBind</a>(android.widget.ImageView&nbsp;imageView,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/view/SimpleItemViewBinder.html#line.80">onImageViewBind</a>(@NonNull
+                               android.widget.ImageView&nbsp;imageView,
+                               @NonNull
                                <a href="../../../../com/teamwork/autocomplete/model/SimpleItem.html" title="class in com.teamwork.autocomplete.model">SimpleItem</a>&nbsp;item)</pre>
 <div class="block">Override this to provide image loading to the <a href="../../../../com/teamwork/autocomplete/view/SimpleItemViewBinder.html" title="class in com.teamwork.autocomplete.view"><code>SimpleItemViewBinder</code></a> using your own image caching library.
  <p>

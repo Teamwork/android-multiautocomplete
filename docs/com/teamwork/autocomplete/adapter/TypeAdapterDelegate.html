@@ -209,7 +209,8 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>registerDataSetObserver</h4>
-<pre>void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.48">registerDataSetObserver</a>(android.database.DataSetObserver&nbsp;observer)</pre>
+<pre>void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.48">registerDataSetObserver</a>(@NonNull
+                             android.database.DataSetObserver&nbsp;observer)</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><code>BaseAdapter.registerDataSetObserver(DataSetObserver)</code></dd>
@@ -222,7 +223,8 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>unregisterDataSetObserver</h4>
-<pre>void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.53">unregisterDataSetObserver</a>(android.database.DataSetObserver&nbsp;observer)</pre>
+<pre>void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.53">unregisterDataSetObserver</a>(@NonNull
+                               android.database.DataSetObserver&nbsp;observer)</pre>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><code>BaseAdapter.unregisterDataSetObserver(DataSetObserver)</code></dd>
@@ -235,7 +237,9 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>setFilteredItems</h4>
-<pre>void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.62">setFilteredItems</a>(java.util.List&lt;<a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html" title="type parameter in TypeAdapterDelegate">M</a>&gt;&nbsp;items)</pre>
+<pre>@MainThread
+void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.62">setFilteredItems</a>(@NonNull
+                                  java.util.List&lt;<a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html" title="type parameter in TypeAdapterDelegate">M</a>&gt;&nbsp;items)</pre>
 <div class="block">Set the list of currently filtered items into the type adapter.
  This will be called by the <code>Filter.performFiltering(CharSequence)</code> method.</div>
 <dl>
@@ -250,7 +254,8 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>getCount</h4>
-<pre>int&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.68">getCount</a>()</pre>
+<pre>@MainThread
+int&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.68">getCount</a>()</pre>
 <div class="block">Get the current count of filtered items in the type adapter.</div>
 </li>
 </ul>
@@ -260,7 +265,9 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>getItem</h4>
-<pre><a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html" title="type parameter in TypeAdapterDelegate">M</a>&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.77">getItem</a>(int&nbsp;position)</pre>
+<pre>@MainThread
+ @NonNull
+<a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html" title="type parameter in TypeAdapterDelegate">M</a>&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.77">getItem</a>(int&nbsp;position)</pre>
 <div class="block">Return the item at the passed position in the type adapter.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -276,7 +283,8 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>getItemId</h4>
-<pre>long&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.86">getItemId</a>(int&nbsp;position)</pre>
+<pre>@MainThread
+long&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.86">getItemId</a>(int&nbsp;position)</pre>
 <div class="block">Return the item identifier as specified by <code>Adapter.getItemId(int)</code>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -292,11 +300,16 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>getView</h4>
-<pre>android.view.View&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.104">getView</a>(android.view.LayoutInflater&nbsp;inflater,
-                          int&nbsp;position,
-                          android.view.View&nbsp;convertView,
-                          android.view.ViewGroup&nbsp;parent,
-                          java.lang.CharSequence&nbsp;constraint)</pre>
+<pre>@NonNull
+android.view.View&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.104">getView</a>(@NonNull
+                                   android.view.LayoutInflater&nbsp;inflater,
+                                   int&nbsp;position,
+                                   @Nullable
+                                   android.view.View&nbsp;convertView,
+                                   @NonNull
+                                   android.view.ViewGroup&nbsp;parent,
+                                   @Nullable
+                                   java.lang.CharSequence&nbsp;constraint)</pre>
 <div class="block">Retrieve the view for the given position using the inflater or the view holder associated to the view itself,
  and binds the data to it.</div>
 <dl>
@@ -319,7 +332,8 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>getFilter</h4>
-<pre><a href="../../../../com/teamwork/autocomplete/filter/TokenFilter.html" title="interface in com.teamwork.autocomplete.filter">TokenFilter</a>&lt;<a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html" title="type parameter in TypeAdapterDelegate">M</a>&gt;&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.117">getFilter</a>()</pre>
+<pre>@NonNull
+<a href="../../../../com/teamwork/autocomplete/filter/TokenFilter.html" title="interface in com.teamwork.autocomplete.filter">TokenFilter</a>&lt;<a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html" title="type parameter in TypeAdapterDelegate">M</a>&gt;&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.117">getFilter</a>()</pre>
 <div class="block">Return the typed <a href="../../../../com/teamwork/autocomplete/filter/TokenFilter.html" title="interface in com.teamwork.autocomplete.filter"><code>TokenFilter</code></a> for this type adapter.</div>
 </li>
 </ul>
@@ -329,7 +343,10 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>performFiltering</h4>
-<pre>java.util.List&lt;<a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html" title="type parameter in TypeAdapterDelegate">M</a>&gt;&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.127">performFiltering</a>(java.lang.CharSequence&nbsp;constraint)</pre>
+<pre>@WorkerThread
+ @NonNull
+java.util.List&lt;<a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html" title="type parameter in TypeAdapterDelegate">M</a>&gt;&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.127">performFiltering</a>(@NonNull
+                                                           java.lang.CharSequence&nbsp;constraint)</pre>
 <div class="block">Called by <code>Filter.performFiltering(CharSequence)</code> off the main thread to filter the list in this type
  adapter based on the passed constraint.</div>
 <dl>
@@ -346,7 +363,9 @@ var activeTableTab = "activeTableTab";
 <ul class="blockListLast">
 <li class="blockList">
 <h4>onTextChanged</h4>
-<pre>void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.135">onTextChanged</a>(java.lang.CharSequence&nbsp;text)</pre>
+<pre>@MainThread
+void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#line.135">onTextChanged</a>(@NonNull
+                               java.lang.CharSequence&nbsp;text)</pre>
 <div class="block">Called by the <code>MultiAutoCompleteTextView</code> when the text typed by the user has changed.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

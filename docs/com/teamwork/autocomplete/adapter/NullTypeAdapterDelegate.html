@@ -336,7 +336,8 @@ extends android.widget.BaseAdapter</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getFilter</h4>
-<pre>public&nbsp;<a href="../../../../com/teamwork/autocomplete/filter/TokenFilter.html" title="interface in com.teamwork.autocomplete.filter">TokenFilter</a>&lt;java.lang.Object&gt;&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/NullTypeAdapterDelegate.html#line.48">getFilter</a>()</pre>
+<pre>@NonNull
+public&nbsp;<a href="../../../../com/teamwork/autocomplete/filter/TokenFilter.html" title="interface in com.teamwork.autocomplete.filter">TokenFilter</a>&lt;java.lang.Object&gt;&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/NullTypeAdapterDelegate.html#line.48">getFilter</a>()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#getFilter--">TypeAdapterDelegate</a></code></span></div>
 <div class="block">Return the typed <a href="../../../../com/teamwork/autocomplete/filter/TokenFilter.html" title="interface in com.teamwork.autocomplete.filter"><code>TokenFilter</code></a> for this type adapter.</div>
 <dl>
@@ -351,7 +352,9 @@ extends android.widget.BaseAdapter</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setItems</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.119">setItems</a>(java.util.List&lt;M&gt;&nbsp;items)</pre>
+<pre>@CallSuper
+public&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.119">setItems</a>(@NonNull
+                                java.util.List&lt;M&gt;&nbsp;items)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/adapter/AutoCompleteTypeAdapter.html#setItems-java.util.List-">AutoCompleteTypeAdapter</a></code></span></div>
 <div class="block">Set a list of items for this type adapter.
  Note that the list will be processed and indexed asynchronously, and used for the next filtering.
@@ -372,7 +375,8 @@ extends android.widget.BaseAdapter</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setFilteredItems</h4>
-<pre>public final&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.151">setFilteredItems</a>(java.util.List&lt;M&gt;&nbsp;filteredItems)</pre>
+<pre>public final&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.151">setFilteredItems</a>(@NonNull
+                                   java.util.List&lt;M&gt;&nbsp;filteredItems)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#setFilteredItems-java.util.List-">TypeAdapterDelegate</a></code></span></div>
 <div class="block">Set the list of currently filtered items into the type adapter.
  This will be called by the <code>Filter.performFiltering(CharSequence)</code> method.</div>
@@ -407,7 +411,8 @@ extends android.widget.BaseAdapter</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getItem</h4>
-<pre>public final&nbsp;M&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.162">getItem</a>(int&nbsp;position)</pre>
+<pre>@NonNull
+public final&nbsp;M&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.162">getItem</a>(int&nbsp;position)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#getItem-int-">TypeAdapterDelegate</a></code></span></div>
 <div class="block">Return the item at the passed position in the type adapter.</div>
 <dl>
@@ -428,11 +433,16 @@ extends android.widget.BaseAdapter</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getView</h4>
-<pre>public&nbsp;android.view.View&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.172">getView</a>(android.view.LayoutInflater&nbsp;inflater,
-                                 int&nbsp;position,
-                                 android.view.View&nbsp;convertView,
-                                 android.view.ViewGroup&nbsp;parent,
-                                 java.lang.CharSequence&nbsp;constraint)</pre>
+<pre>@NonNull
+public&nbsp;android.view.View&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.172">getView</a>(@NonNull
+                                          android.view.LayoutInflater&nbsp;inflater,
+                                          int&nbsp;position,
+                                          @Nullable
+                                          android.view.View&nbsp;convertView,
+                                          @NonNull
+                                          android.view.ViewGroup&nbsp;parent,
+                                          @Nullable
+                                          java.lang.CharSequence&nbsp;constraint)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#getView-android.view.LayoutInflater-int-android.view.View-android.view.ViewGroup-java.lang.CharSequence-">TypeAdapterDelegate</a></code></span></div>
 <div class="block">Retrieve the view for the given position using the inflater or the view holder associated to the view itself,
  and binds the data to it.</div>
@@ -473,7 +483,10 @@ extends android.widget.BaseAdapter</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>performFiltering</h4>
-<pre>public final&nbsp;java.util.List&lt;M&gt;&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.193">performFiltering</a>(java.lang.CharSequence&nbsp;constraint)</pre>
+<pre>@WorkerThread
+ @NonNull
+public final&nbsp;java.util.List&lt;M&gt;&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.193">performFiltering</a>(@NonNull
+                                                                        java.lang.CharSequence&nbsp;constraint)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#performFiltering-java.lang.CharSequence-">TypeAdapterDelegate</a></code></span></div>
 <div class="block">Called by <code>Filter.performFiltering(CharSequence)</code> off the main thread to filter the list in this type
  adapter based on the passed constraint.</div>
@@ -493,7 +506,8 @@ extends android.widget.BaseAdapter</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setOnTokensChangedListener</h4>
-<pre>public final&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.202">setOnTokensChangedListener</a>(<a href="../../../../com/teamwork/autocomplete/adapter/OnTokensChangedListener.html" title="interface in com.teamwork.autocomplete.adapter">OnTokensChangedListener</a>&lt;M&gt;&nbsp;listener)</pre>
+<pre>public final&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.202">setOnTokensChangedListener</a>(@Nullable
+                                             <a href="../../../../com/teamwork/autocomplete/adapter/OnTokensChangedListener.html" title="interface in com.teamwork.autocomplete.adapter">OnTokensChangedListener</a>&lt;M&gt;&nbsp;listener)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/adapter/AutoCompleteTypeAdapter.html#setOnTokensChangedListener-com.teamwork.autocomplete.adapter.OnTokensChangedListener-">AutoCompleteTypeAdapter</a></code></span></div>
 <div class="block">Set a <a href="../../../../com/teamwork/autocomplete/adapter/OnTokensChangedListener.html" title="interface in com.teamwork.autocomplete.adapter"><code>OnTokensChangedListener</code></a> to listen for changes in the matched tokens in the user-typed text.
  <p>
@@ -516,7 +530,8 @@ extends android.widget.BaseAdapter</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>onTextChanged</h4>
-<pre>public final&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.210">onTextChanged</a>(java.lang.CharSequence&nbsp;text)</pre>
+<pre>public final&nbsp;void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/BaseTypeAdapterDelegate.html#line.210">onTextChanged</a>(@NonNull
+                                java.lang.CharSequence&nbsp;text)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../com/teamwork/autocomplete/adapter/TypeAdapterDelegate.html#onTextChanged-java.lang.CharSequence-">TypeAdapterDelegate</a></code></span></div>
 <div class="block">Called by the <code>MultiAutoCompleteTextView</code> when the text typed by the user has changed.</div>
 <dl>

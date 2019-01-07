@@ -182,7 +182,9 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>setItems</h4>
-<pre>void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/AutoCompleteTypeAdapter.html#line.51">setItems</a>(java.util.List&lt;<a href="../../../../com/teamwork/autocomplete/adapter/AutoCompleteTypeAdapter.html" title="type parameter in AutoCompleteTypeAdapter">Model</a>&gt;&nbsp;items)</pre>
+<pre>@MainThread
+void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/AutoCompleteTypeAdapter.html#line.51">setItems</a>(@NonNull
+                          java.util.List&lt;<a href="../../../../com/teamwork/autocomplete/adapter/AutoCompleteTypeAdapter.html" title="type parameter in AutoCompleteTypeAdapter">Model</a>&gt;&nbsp;items)</pre>
 <div class="block">Set a list of items for this type adapter.
  Note that the list will be processed and indexed asynchronously, and used for the next filtering.
  <p>
@@ -200,7 +202,9 @@ var activeTableTab = "activeTableTab";
 <ul class="blockListLast">
 <li class="blockList">
 <h4>setOnTokensChangedListener</h4>
-<pre>void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/AutoCompleteTypeAdapter.html#line.65">setOnTokensChangedListener</a>(<a href="../../../../com/teamwork/autocomplete/adapter/OnTokensChangedListener.html" title="interface in com.teamwork.autocomplete.adapter">OnTokensChangedListener</a>&lt;<a href="../../../../com/teamwork/autocomplete/adapter/AutoCompleteTypeAdapter.html" title="type parameter in AutoCompleteTypeAdapter">Model</a>&gt;&nbsp;listener)</pre>
+<pre>@MainThread
+void&nbsp;<a href="../../../../src-html/com/teamwork/autocomplete/adapter/AutoCompleteTypeAdapter.html#line.65">setOnTokensChangedListener</a>(@Nullable
+                                            <a href="../../../../com/teamwork/autocomplete/adapter/OnTokensChangedListener.html" title="interface in com.teamwork.autocomplete.adapter">OnTokensChangedListener</a>&lt;<a href="../../../../com/teamwork/autocomplete/adapter/AutoCompleteTypeAdapter.html" title="type parameter in AutoCompleteTypeAdapter">Model</a>&gt;&nbsp;listener)</pre>
 <div class="block">Set a <a href="../../../../com/teamwork/autocomplete/adapter/OnTokensChangedListener.html" title="interface in com.teamwork.autocomplete.adapter"><code>OnTokensChangedListener</code></a> to listen for changes in the matched tokens in the user-typed text.
  <p>
  <b>Note:</b> this method can only be called if the token filter returned by
