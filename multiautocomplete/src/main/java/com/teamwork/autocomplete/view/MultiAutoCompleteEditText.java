@@ -17,10 +17,11 @@
 package com.teamwork.autocomplete.view;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatMultiAutoCompleteTextView;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 
 import java.lang.reflect.Field;
 

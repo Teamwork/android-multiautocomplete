@@ -16,11 +16,12 @@
 
 package com.teamwork.autocomplete.tokenizer;
 
-import android.support.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.widget.MultiAutoCompleteTextView;
+
+import androidx.annotation.NonNull;
 
 import java.util.Arrays;
 

@@ -16,7 +16,7 @@ buildscript {
     }
 }
 
-def libraryVersion = "0.2.7-alpha"
+def libraryVersion = "0.3.0-alpha"
 
 android {
     compileSdkVersion project.ext.sharedCompileSdkVersion
@@ -28,7 +28,7 @@ android {
         versionCode 1
         versionName libraryVersion
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
     }
     buildTypes {
@@ -46,8 +46,8 @@ android {
 
 dependencies {
     // Google dependencies
-    api "com.android.support:appcompat-v7:${versions.supportLibrary}"
-    api "com.android.support:support-annotations:${versions.supportLibrary}"
+    api "androidx.appcompat:appcompat:${versions.androidx.appCompat}"
+    api "androidx.annotation:annotation:${versions.androidx.annotation}"
 
     // test dependencies
     testImplementation "junit:junit:${versions.junit}"

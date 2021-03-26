@@ -16,9 +16,10 @@
 
 package com.teamwork.autocomplete.view;
 
-import android.support.annotation.MainThread;
-import android.support.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 
 /**
  * Base class for View holders to use within an {@link com.teamwork.autocomplete.adapter.AutoCompleteTypeAdapter}.

@@ -17,13 +17,14 @@
 package com.teamwork.autocomplete;
 
 import android.database.DataSetObserver;
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.MultiAutoCompleteTextView.Tokenizer;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import com.teamwork.autocomplete.adapter.TypeAdapterDelegate;
 import com.teamwork.autocomplete.view.MultiAutoCompleteEditText;

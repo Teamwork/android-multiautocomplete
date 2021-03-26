@@ -16,7 +16,7 @@
 
 package com.teamwork.autocomplete.adapter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 /**
  * Listener interface for components tied to an {@link TypeAdapterDelegate} that need a callback when a full token

@@ -16,9 +16,10 @@
 
 package com.teamwork.autocomplete.util;
 
-import android.support.annotation.NonNull;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+
+import androidx.annotation.NonNull;
 
 /**
  * Utility methods to manipulate {@link Spannable}s.

@@ -18,13 +18,14 @@ package com.teamwork.autocomplete;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Filter;
 import android.widget.ListAdapter;
 import android.widget.MultiAutoCompleteTextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.teamwork.autocomplete.adapter.AutoCompleteTypeAdapter;
 import com.teamwork.autocomplete.adapter.TypeAdapterDelegate;
@@ -62,7 +63,7 @@ public interface MultiAutoComplete {
     /**
      * Call this when the view gets attached to the component using {@link MultiAutoComplete}.
      * This is usually done in the {@link Activity#onCreate(Bundle)} or
-     * {@link android.support.v4.app.Fragment#onViewCreated(View, Bundle)}.
+     * {@link Fragment#onViewCreated(View, Bundle)}.
      *
      * @param view The {@link MultiAutoCompleteEditText} view that this {@link MultiAutoComplete} will be managing.
      */
@@ -75,6 +76,7 @@ public interface MultiAutoComplete {
      */
     void onViewDetached();
 
+
     /**
      * {@link MultiAutoComplete} concrete implementation builder component.
      */
@@ -83,7 +85,8 @@ public interface MultiAutoComplete {
         private final List<TypeAdapterDelegate> typeAdapters = new ArrayList<>();
 
         private MultiAutoCompleteTextView.Tokenizer tokenizer;
-        private @Nullable Delayer delayer;
+        private @Nullable
+        Delayer delayer;
 
         /**
          * Set the {@link MultiAutoCompleteTextView.Tokenizer} for the {@link MultiAutoComplete} being built.
@@ -131,10 +134,12 @@ public interface MultiAutoComplete {
         /**
          * Build the configured instance of this {@link MultiAutoComplete}.
          */
-        public @NonNull MultiAutoComplete build() {
+        public @NonNull
+        MultiAutoComplete build() {
             return new MultiAutoCompleteImpl(tokenizer, typeAdapters, delayer);
         }
     }
+
 
     /**
      * Static factory helper methods to construct an instance of {@link MultiAutoComplete} with default parameters.
@@ -208,6 +213,7 @@ public interface MultiAutoComplete {
                     .build();
         }
     }
+
 
     /**
      * Delegate interface for the hidden {@link Filter}<b>$Delayer</b> interface, used to delay the filtering of the
