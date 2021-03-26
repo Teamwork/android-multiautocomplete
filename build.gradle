@@ -35,10 +35,10 @@ allprojects {
     }
 
     project.ext {
-        sharedCompileSdkVersion = 27
+        sharedCompileSdkVersion = 30
         sharedMinSdkVersion = 18
-        sharedTargetSdkVersion = 27
-        sharedBuildToolsVersion = "28.0.3"
+        sharedTargetSdkVersion = 30
+        sharedBuildToolsVersion = "30.0.3"
     }
 
 
