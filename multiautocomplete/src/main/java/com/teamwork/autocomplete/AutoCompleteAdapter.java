@@ -218,12 +218,12 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence token, FilterResults results) {
             FilterResultsWrapper resultsWrapper = (FilterResultsWrapper) results.values;
             currentConstraint = resultsWrapper.constraint;
             currentTypeAdapter = resultsWrapper.typeAdapter;
 
-            //noinspection unchecked
             currentTypeAdapter.setFilteredItems(resultsWrapper.results);
             notifyDataSetChanged();
         }
