@@ -124,7 +124,7 @@ Pull the source code and run the app to check it out.
 
 ## License
 
-    Copyright 2017 Teamwork.com
+    Copyright 2017-2021 Teamwork.com
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
