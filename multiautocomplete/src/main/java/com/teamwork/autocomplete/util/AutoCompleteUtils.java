@@ -16,9 +16,10 @@
 
 package com.teamwork.autocomplete.util;
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.EditText;
+
+import androidx.annotation.Nullable;
 
 /**
  * Helper static methods for AutoComplete features.

@@ -16,8 +16,9 @@
 
 package com.teamwork.autocomplete.filter;
 
-import android.support.annotation.NonNull;
 import android.widget.MultiAutoCompleteTextView;
+
+import androidx.annotation.NonNull;
 
 /**
  * Simple implementation of a {@link BaseTokenFilter} which supports all tokens and does not use handles.

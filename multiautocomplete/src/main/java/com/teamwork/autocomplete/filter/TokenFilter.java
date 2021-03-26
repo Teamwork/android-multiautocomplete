@@ -16,10 +16,11 @@
 
 package com.teamwork.autocomplete.filter;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
 import android.widget.Filter;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 
 import com.teamwork.autocomplete.adapter.AutoCompleteTypeAdapter;
 import com.teamwork.autocomplete.util.ConstraintComparator;

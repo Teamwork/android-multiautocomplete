@@ -16,8 +16,8 @@
 
 package com.teamwork.autocomplete.model;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Simple POJO for an item model to use with an {@link com.teamwork.autocomplete.adapter.AutoCompleteTypeAdapter}.

@@ -1,6 +1,6 @@
 package com.teamwork.autocomplete.test_util;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import java.util.concurrent.Executor;
 

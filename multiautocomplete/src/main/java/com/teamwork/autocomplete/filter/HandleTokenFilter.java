@@ -16,7 +16,7 @@
 
 package com.teamwork.autocomplete.filter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.teamwork.autocomplete.util.AutoCompleteUtils;
 
