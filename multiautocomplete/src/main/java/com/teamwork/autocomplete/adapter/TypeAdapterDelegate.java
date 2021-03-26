@@ -20,7 +20,6 @@ import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
@@ -34,8 +33,7 @@ import java.util.List;
 /**
  * Internal use interface for a type adapter.
  * <p>
- * Used by {@link com.teamwork.autocomplete.MultiAutoComplete}'s main adapter to delegate filtering to one of the
- * registered type adapters.
+ * Used by {@link com.teamwork.autocomplete.MultiAutoComplete}'s main adapter to delegate filtering to one of the registered type adapters.
  *
  * @author Marco Salis
  */
@@ -55,7 +53,7 @@ public interface TypeAdapterDelegate<M> {
 
     /**
      * Set the list of currently filtered items into the type adapter.
-     * This will be called by the {@link Filter#performFiltering(CharSequence)} method.
+     * This will be called by the <code>Filter.performFiltering(CharSequence)</code> method.
      *
      * @param items A list of items to set in the adapter.
      */
@@ -88,11 +86,12 @@ public interface TypeAdapterDelegate<M> {
 
     //endregion
 
+
     //region layout and view binding
 
     /**
-     * Retrieve the view for the given position using the inflater or the view holder associated to the view itself,
-     * and binds the data to it.
+     * Retrieve the view for the given position using the inflater or the view holder associated to the view itself, and binds the data to
+     * it.
      *
      * @param inflater    The {@link LayoutInflater} for inflating the view.
      * @param position    The adapter position of the view to retrieve.
@@ -100,7 +99,7 @@ public interface TypeAdapterDelegate<M> {
      * @param parent      The view parent for view inflation.
      * @param constraint  The current text constraint to pass the view binder.
      * @return The view for the element at the passed position.
-     * @see {@link android.widget.BaseAdapter#getView(int, View, ViewGroup)}
+     * @see android.widget.BaseAdapter#getView(int, View, ViewGroup)
      */
     @NonNull View getView(@NonNull LayoutInflater inflater,
                           int position,
@@ -110,6 +109,7 @@ public interface TypeAdapterDelegate<M> {
 
     //endregion
 
+
     //region tokens, filters and constraints
 
     /**
@@ -118,8 +118,8 @@ public interface TypeAdapterDelegate<M> {
     @NonNull TokenFilter<M> getFilter();
 
     /**
-     * Called by {@link Filter#performFiltering(CharSequence)} off the main thread to filter the list in this type
-     * adapter based on the passed constraint.
+     * Called by <code>Filter#performFiltering(CharSequence)</code> off the main thread to filter the list in this type adapter based on the
+     * passed constraint.
      *
      * @param constraint A text constraint to filter the adapter elements.
      * @return A List of filtered items from this adapter.

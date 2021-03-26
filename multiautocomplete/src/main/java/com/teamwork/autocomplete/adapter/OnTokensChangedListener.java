@@ -19,14 +19,13 @@ package com.teamwork.autocomplete.adapter;
 import androidx.annotation.NonNull;
 
 /**
- * Listener interface for components tied to an {@link TypeAdapterDelegate} that need a callback when a full token
- * gets added or removed within the text contents of an editable TextView.
+ * Listener interface for components tied to an {@link TypeAdapterDelegate} that need a callback when a full token gets added or removed
+ * within the text contents of an editable TextView.
  * <p>
  * The detected text token will be matched to an item of type 'Model' by the type adapter and returned in the callback.
  * <p>
  * i.e. if the user types '@johndoe' and the handle matches one of the data items in the adapter, the {@link
- * #onTokenAdded(CharSequence, Object)} method from a subscribed listener will be called with that handle and the
- * associated 'person' model.
+ * #onTokenAdded(CharSequence, Object)} method from a subscribed listener will be called with that handle and the associated 'person' model.
  *
  * @author Marco Salis
  * @see AutoCompleteTypeAdapter#setOnTokensChangedListener(OnTokensChangedListener)

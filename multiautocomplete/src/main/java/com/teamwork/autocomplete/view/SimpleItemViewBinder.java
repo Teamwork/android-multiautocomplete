@@ -78,9 +78,10 @@ public class SimpleItemViewBinder implements AutoCompleteViewBinder<SimpleItem> 
      * <p>
      * The default implementation just sets the ImageView's visibility to {@link View#GONE}.
      */
-    protected void onImageViewBind(@NonNull ImageView imageView, @NonNull SimpleItem item) {
+    protected void onImageViewBind(@NonNull ImageView imageView, @SuppressWarnings("unused") @NonNull SimpleItem item) {
         imageView.setVisibility(View.GONE);
     }
+
 
     public static class SimpleItemViewHolder extends AutoCompleteViewHolder {
 

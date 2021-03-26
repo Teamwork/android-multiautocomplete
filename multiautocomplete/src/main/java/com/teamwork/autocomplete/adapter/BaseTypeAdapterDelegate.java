@@ -51,13 +51,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A typed adapter for the auto complete view, used to provide a layout, data binding and filter options for a single
- * data type. It holds an {@link AutoCompleteViewBinder} and a {@link TokenFilter}.
+ * A typed adapter for the auto complete view, used to provide a layout, data binding and filter options for a single data type.
+ * It holds an {@link AutoCompleteViewBinder} and a {@link TokenFilter}.
  *
  * @author Marco Salis
  */
 // @ThreadSafe
-class BaseTypeAdapterDelegate<M> extends BaseAdapter implements TypeAdapterDelegate<M>, AutoCompleteTypeAdapter<M> {
+class BaseTypeAdapterDelegate<M>
+        extends BaseAdapter
+        implements TypeAdapterDelegate<M>, AutoCompleteTypeAdapter<M> {
 
     private final Executor computationExecutor;
     private final Handler mainThreadHandler;

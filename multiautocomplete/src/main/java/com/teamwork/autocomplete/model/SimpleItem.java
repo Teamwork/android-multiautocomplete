@@ -37,6 +37,7 @@ public class SimpleItem {
         this.text = text;
     }
 
+    @SuppressWarnings("unused")
     public @Nullable String getImageUrl() {
         return imageUrl;
     }
@@ -46,7 +47,7 @@ public class SimpleItem {
     }
 
     @Override
-    public String toString() {
+    public @NonNull String toString() {
         return text.toString();
     }
 

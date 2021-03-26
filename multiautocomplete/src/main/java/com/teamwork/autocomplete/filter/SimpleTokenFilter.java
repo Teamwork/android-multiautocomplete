@@ -23,8 +23,8 @@ import androidx.annotation.NonNull;
 /**
  * Simple implementation of a {@link BaseTokenFilter} which supports all tokens and does not use handles.
  * <p>
- * Can be used to trigger filtering on all strings in combination with a {@link MultiAutoCompleteTextView.CommaTokenizer}
- * or another custom tokenizer which uses a different separator.
+ * Can be used to trigger filtering on all strings in combination with a {@link MultiAutoCompleteTextView.CommaTokenizer} or another custom
+ * tokenizer which uses a different separator.
  *
  * @author Marco Salis
  */

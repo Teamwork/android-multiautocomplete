@@ -25,11 +25,10 @@ import androidx.annotation.WorkerThread;
 import java.util.Comparator;
 
 /**
- * Abstract implementation of {@link Comparator} that supports an additional text constraint to implement custom
- * ordering rules when filtering objects based on a user-entered input.
+ * Abstract implementation of {@link Comparator} that supports an additional text constraint to implement custom ordering rules when
+ * filtering objects based on a user-entered input.
  * <p>
- * Extend this class and implement your {@link #compare(CharSequence, Object, Object)} method as if you were using a
- * standard Comparator.
+ * Extend this class and implement your {@link #compare(CharSequence, Object, Object)} method as if you were using a standard Comparator.
  * <p>
  * This class is thread safe, and subclasses should maintain this property.
  *
@@ -49,8 +48,8 @@ public abstract class ConstraintComparator<T> implements Comparator<T> {
     }
 
     /**
-     * Return whether the currently set constraint requires sorting.
-     * The default implementation returns true when the constraint is not null or empty.
+     * Return whether the currently set constraint requires sorting. The default implementation returns true when the constraint is not null
+     * or empty.
      */
     public synchronized boolean shouldCompare() {
         return !TextUtils.isEmpty(constraint);
@@ -63,14 +62,12 @@ public abstract class ConstraintComparator<T> implements Comparator<T> {
     }
 
     /**
-     * Compares the two objects for order, providing the current text constraint for filtering and applying custom
-     * rules to the ordering.
+     * Compares the two objects for order, providing the current text constraint for filtering and applying custom rules to the ordering.
      *
      * @param constraint The constraint text.
      * @param o1         the first object to be compared.
      * @param o2         the second object to be compared.
-     * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater
-     * than the second.
+     * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
      * @see Comparator#compare(Object, Object)
      */
     @WorkerThread

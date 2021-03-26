@@ -28,11 +28,11 @@ import java.lang.reflect.Field;
 /**
  * Subclass of {@link AppCompatMultiAutoCompleteTextView} for multi auto complete use.
  * <p>
- * The main reason for which this is necessary is that Android (sigh) didn't provide a listener for
- * {@link #onSelectionChanged(int, int)} cursor callbacks.
+ * The main reason for which this is necessary is that Android (sigh) didn't provide a listener for {@link #onSelectionChanged(int, int)}
+ * cursor callbacks.
  * <p>
- * We need that to start the filtering (and display the dropdown if necessary) when the user moves the cursor within
- * the {@link AppCompatMultiAutoCompleteTextView}.
+ * We need that to start the filtering (and display the dropdown if necessary) when the user moves the cursor within the {@link
+ * AppCompatMultiAutoCompleteTextView}.
  *
  * @author Marco Salis
  */
@@ -47,6 +47,7 @@ public class MultiAutoCompleteEditText extends AppCompatMultiAutoCompleteTextVie
          */
         boolean onSelectionChanged(int selStart, int selEnd);
     }
+
 
     private OnSelectionChangedListener listener;
 

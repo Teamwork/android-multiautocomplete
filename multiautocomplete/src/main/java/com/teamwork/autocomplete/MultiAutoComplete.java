@@ -16,16 +16,12 @@
 
 package com.teamwork.autocomplete;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Filter;
 import android.widget.ListAdapter;
 import android.widget.MultiAutoCompleteTextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.teamwork.autocomplete.adapter.AutoCompleteTypeAdapter;
 import com.teamwork.autocomplete.adapter.TypeAdapterDelegate;
@@ -43,36 +39,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The main <b>MultiAutoComplete</b> component, it manages the type adapters and holds a reference to the managed
- * {@link MultiAutoCompleteTextView}. It also provides lifecycle methods to attach/detach the view itself.
+ * The main <b>MultiAutoComplete</b> component, it manages the type adapters and holds a reference to the managed {@link
+ * MultiAutoCompleteTextView}. It also provides lifecycle methods to attach/detach the view itself.
  * <p>
- * The managed {@link MultiAutoCompleteTextView} can be styled and used as normal. Once configured, the library will
- * take care of calling {@link MultiAutoCompleteTextView#setTokenizer(MultiAutoCompleteTextView.Tokenizer)} and
- * {@link MultiAutoCompleteTextView#setAdapter(ListAdapter)} and present the data for you when there is a token match.
+ * The managed {@link MultiAutoCompleteTextView} can be styled and used as normal.
+ * Once configured, the library will take care of calling {@link MultiAutoCompleteTextView#setTokenizer(MultiAutoCompleteTextView.Tokenizer)}
+ * and {@link MultiAutoCompleteTextView#setAdapter(ListAdapter)} and present the data for you when there is a token match.
  * <p>
- * It holds an "adapter of adapters" internally, with which the component can handle multiple data types in the same
- * instance and decide which adapter to use for filtering depending on what kind of token is being typed in.
+ * It holds an "adapter of adapters" internally, with which the component can handle multiple data types in the same instance and decide
+ * which adapter to use for filtering depending on what kind of token is being typed in.
  * <p>
- * To create an instance use one of the static factory methods in {@link MultiAutoComplete.Build} or, for full
- * customization, use the {@link Builder} itself.
+ * To create an instance use one of the static factory methods in {@link MultiAutoComplete.Build} or, for full customization, use the
+ * {@link Builder} itself.
  *
  * @author Marco Salis
  */
 public interface MultiAutoComplete {
 
     /**
-     * Call this when the view gets attached to the component using {@link MultiAutoComplete}.
-     * This is usually done in the {@link Activity#onCreate(Bundle)} or
-     * {@link Fragment#onViewCreated(View, Bundle)}.
+     * Call this when the view gets attached to the component using {@link MultiAutoComplete}. This is usually done in
+     * <code>Activity.onCreate(Bundle)</code> or <code>Fragment.onViewCreated(View, Bundle)</code>.
      *
      * @param view The {@link MultiAutoCompleteEditText} view that this {@link MultiAutoComplete} will be managing.
      */
     void onViewAttached(@NonNull MultiAutoCompleteEditText view);
 
     /**
-     * Call this when the view gets detached to the component using {@link MultiAutoComplete}, to avoid memory leaks or
-     * usage of a view that is no longer on screen.
-     * This is usually done in the {@link Activity#onDestroy()} or  {@link Fragment#onDestroyView()}.
+     * Call this when the view gets detached to the component using {@link MultiAutoComplete}, to avoid memory leaks or usage of a view that
+     * is no longer on screen. This is usually done in <code>Activity.onDestroy()</code> or <code>Fragment.onDestroyView()</code>.
      */
     void onViewDetached();
 
@@ -82,7 +76,7 @@ public interface MultiAutoComplete {
      */
     class Builder {
 
-        private final List<TypeAdapterDelegate> typeAdapters = new ArrayList<>();
+        private final List<TypeAdapterDelegate<?>> typeAdapters = new ArrayList<>();
 
         private MultiAutoCompleteTextView.Tokenizer tokenizer;
         private @Nullable
@@ -117,25 +111,24 @@ public interface MultiAutoComplete {
          * Add a {@link AutoCompleteTypeAdapter} to the {@link MultiAutoComplete} being built.
          * The type adapter must be built with one of the {@link AutoCompleteTypeAdapter.Build} factory methods.
          * <p>
-         * <b>Note:</b> the insertion order will determine which type adapter will handle a specific token. If there
-         * are multiple adapters that support a specific token format, only the first matching will be used.
+         * <b>Note:</b> the insertion order will determine which type adapter will handle a specific token.
+         * If there are multiple adapters that support a specific token format, only the first matching will be used.
          *
          * @param typeAdapter The type adapter to add.
          * @return The builder for chaining calls.
          */
-        public Builder addTypeAdapter(@NonNull AutoCompleteTypeAdapter typeAdapter) {
+        public Builder addTypeAdapter(@NonNull AutoCompleteTypeAdapter<?> typeAdapter) {
             if (!(typeAdapter instanceof TypeAdapterDelegate)) {
                 throw new IllegalArgumentException("Type adapter must implement TypeAdapterDelegate!");
             }
-            typeAdapters.add((TypeAdapterDelegate) typeAdapter);
+            typeAdapters.add((TypeAdapterDelegate<?>) typeAdapter);
             return this;
         }
 
         /**
          * Build the configured instance of this {@link MultiAutoComplete}.
          */
-        public @NonNull
-        MultiAutoComplete build() {
+        public @NonNull MultiAutoComplete build() {
             return new MultiAutoCompleteImpl(tokenizer, typeAdapters, delayer);
         }
     }
@@ -144,16 +137,16 @@ public interface MultiAutoComplete {
     /**
      * Static factory helper methods to construct an instance of {@link MultiAutoComplete} with default parameters.
      * <p>
-     * The {@link TokenFilter} implementations set by this methods will match the current constraint with the value
-     * returned by the {@link #toString()} method of the passed items.
+     * The {@link TokenFilter} implementations set by this methods will match the current constraint with the value returned by the {@link
+     * #toString()} method of the passed items.
      *
      * @see BaseTokenFilter
      */
     class Build {
 
         /**
-         * Build an instance of {@link MultiAutoComplete} from the passed list of {@link SimpleItem}s with the default
-         * UI. The auto complete will be triggered at every space-prefixed character, on each comma-separated value.
+         * Build an instance of {@link MultiAutoComplete} from the passed list of {@link SimpleItem}s with the default UI.
+         * The auto complete will be triggered at every space-prefixed character, on each comma-separated value.
          * <p>
          * Use this method to implement if no handle, customization of the layout, data type or filtering is required.
          *
@@ -175,8 +168,8 @@ public interface MultiAutoComplete {
         }
 
         /**
-         * Build an instance of {@link MultiAutoComplete} from the passed list of {@link SimpleItem}s with the default
-         * UI. The auto complete will be triggered by the passed char handle.
+         * Build an instance of {@link MultiAutoComplete} from the passed list of {@link SimpleItem}s with the default UI.
+         * The auto complete will be triggered by the passed char handle.
          * <p>
          * Use this method to implement if no customization of the layout, data type or filtering is required.
          *
@@ -192,8 +185,8 @@ public interface MultiAutoComplete {
         }
 
         /**
-         * Build an instance of {@link MultiAutoComplete} from the passed list of item models and a layout provided by
-         * a custom view binder. The auto complete will be triggered by the passed char handle.
+         * Build an instance of {@link MultiAutoComplete} from the passed list of item models and a layout provided by a custom view binder.
+         * The auto complete will be triggered by the passed char handle.
          * <p>
          * Use this method to implement if no customization of the filtering and tokenizer is required.
          *
@@ -216,12 +209,12 @@ public interface MultiAutoComplete {
 
 
     /**
-     * Delegate interface for the hidden {@link Filter}<b>$Delayer</b> interface, used to delay the filtering of the
-     * text constraint on the {@link MultiAutoCompleteTextView}.
+     * Delegate interface for the hidden {@link Filter}<b>$Delayer</b> interface, used to delay the filtering of the text constraint on the
+     * {@link MultiAutoCompleteTextView}.
      * <p>
-     * <b>Important note:</b> {@link MultiAutoComplete} uses reflection internally to access the state of the Android
-     * {@link Filter} and set the hidden delayer. Its behaviour is not guaranteed for future Android versions, and it
-     * will fail silently in some scenarios (an error message is logged into the LogCat console when that happens).
+     * <b>Important note:</b> {@link MultiAutoComplete} uses reflection internally to access the state of the Android {@link Filter} and
+     * set the hidden delayer. Its behaviour is not guaranteed for future Android versions, and it will fail silently in some scenarios (an
+     * error message is logged into the LogCat console when that happens).
      * <p>
      * Implementations must be thread safe.
      */
@@ -231,8 +224,7 @@ public interface MultiAutoComplete {
          * Get the delay with which the filtering will be performed after the constraint change from the user.
          *
          * @param constraint The constraint passed to {@link Filter#filter(CharSequence)}.
-         * @return The delay with which the filtering operation on the {@link MultiAutoCompleteEditText} will occur in
-         * milliseconds.
+         * @return The delay with which the filtering operation on the {@link MultiAutoCompleteEditText} will occur in milliseconds.
          */
         long getPostingDelay(CharSequence constraint);
     }
