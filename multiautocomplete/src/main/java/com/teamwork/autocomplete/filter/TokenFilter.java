@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Teamwork.com
+ * Copyright 2017-present Teamwork.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,8 +31,8 @@ import java.util.regex.Pattern;
 /**
  * Interface for components that implement the filtering feature of {@link AutoCompleteTypeAdapter}s.
  * <p>
- * Includes methods to detect if a token is supported, filter a list of items coming from the type adapter and provide
- * a Comparator to sort the results.
+ * Includes methods to detect if a token is supported, filter a list of items coming from the type adapter and provide a Comparator to sort
+ * the results.
  * <p>
  * Implementations should be thread safe.
  *
@@ -42,8 +42,8 @@ public interface TokenFilter<M> {
 
     /**
      * Check whether the provided token is supported by the filter.
-     * When true is returned, the {@link TokenFilter} can perform filtering and recognize the items that are valid for
-     * the other auto completion features.
+     * When true is returned, the {@link TokenFilter} can perform filtering and recognize the items that are valid for the other auto
+     * completion features.
      *
      * @param token The token string.
      * @return true if the token text is supported, false otherwise.
@@ -60,8 +60,7 @@ public interface TokenFilter<M> {
 
     /**
      * Return the token string representation of the passed item.
-     * Note that this could be different from the {@link #toString()} representation, for example to add a handle when
-     * supported.
+     * Note that this could be different from the {@link #toString()} representation, for example to add a handle when supported.
      * <p>
      * This is used by the {@link Filter#convertResultToString(Object)} method for user suggestions and auto complete
      * and by the {@link AutoCompleteTypeAdapter} to match token strings with the user-typed characters.
@@ -73,8 +72,8 @@ public interface TokenFilter<M> {
 
     /**
      * Return an optional "valid token" pattern that matches full tokens which can be associated with the items data.
-     * This can be used by the {@link AutoCompleteTypeAdapter} to detect tokens and notify when a token is
-     * added/removed by the user in the auto complete edit text view.
+     * This can be used by the {@link AutoCompleteTypeAdapter} to detect tokens and notify when a token is added/removed by the user in the
+     * auto complete edit text view.
      * <p>
      * For performance reasons, the same instance of {@link Pattern} should be returned at every method call.
      *
@@ -83,8 +82,7 @@ public interface TokenFilter<M> {
     @Nullable Pattern getValidTokenPattern();
 
     /**
-     * Perform the actual items filtering, delegating to the filter the decision whether each items matches the passed
-     * text constraint.
+     * Perform the actual items filtering, delegating to the filter the decision whether each items matches the passed text constraint.
      * <p>
      * This method must always be executed from a worker thread.
      *
@@ -99,11 +97,11 @@ public interface TokenFilter<M> {
      * Return an optional {@link ConstraintComparator} to sort the filtered items based on the current text constraint.
      * <p>
      * Note that it's more efficient, performance-wise, to just sort the initial list set and then pass it to
-     * {@link AutoCompleteTypeAdapter#setItems(List)} and return null from this method, if the ordering never depends
-     * on the text constraint.
+     * {@link AutoCompleteTypeAdapter#setItems(List)} and return null from this method, if the ordering never depends on the text
+     * constraint.
      *
-     * @return The {@link ConstraintComparator} instance, can be reused across calls if possible, or null if the
-     * filtered results can use the original items list order.
+     * @return The {@link ConstraintComparator} instance, can be reused across calls if possible, or null if the filtered results can use
+     * the original items list order.
      */
     @WorkerThread
     @Nullable ConstraintComparator<M> getConstraintComparator();

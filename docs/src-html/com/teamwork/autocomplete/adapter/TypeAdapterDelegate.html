@@ -7,7 +7,7 @@
 <body>
 <div class="sourceContainer">
 <pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
-<span class="sourceLineNo">002</span> * Copyright 2017 Teamwork.com<a name="line.2"></a>
+<span class="sourceLineNo">002</span> * Copyright 2017-present Teamwork.com<a name="line.2"></a>
 <span class="sourceLineNo">003</span> *<a name="line.3"></a>
 <span class="sourceLineNo">004</span> * Licensed under the Apache License, Version 2.0 (the "License");<a name="line.4"></a>
 <span class="sourceLineNo">005</span> * you may not use this file except in compliance with the License.<a name="line.5"></a>
@@ -25,14 +25,14 @@
 <span class="sourceLineNo">017</span>package com.teamwork.autocomplete.adapter;<a name="line.17"></a>
 <span class="sourceLineNo">018</span><a name="line.18"></a>
 <span class="sourceLineNo">019</span>import android.database.DataSetObserver;<a name="line.19"></a>
-<span class="sourceLineNo">020</span>import android.support.annotation.MainThread;<a name="line.20"></a>
-<span class="sourceLineNo">021</span>import android.support.annotation.NonNull;<a name="line.21"></a>
-<span class="sourceLineNo">022</span>import android.support.annotation.Nullable;<a name="line.22"></a>
-<span class="sourceLineNo">023</span>import android.support.annotation.WorkerThread;<a name="line.23"></a>
-<span class="sourceLineNo">024</span>import android.view.LayoutInflater;<a name="line.24"></a>
-<span class="sourceLineNo">025</span>import android.view.View;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>import android.view.ViewGroup;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import android.widget.Filter;<a name="line.27"></a>
+<span class="sourceLineNo">020</span>import android.view.LayoutInflater;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import android.view.View;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import android.view.ViewGroup;<a name="line.22"></a>
+<span class="sourceLineNo">023</span><a name="line.23"></a>
+<span class="sourceLineNo">024</span>import androidx.annotation.MainThread;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import androidx.annotation.NonNull;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import androidx.annotation.Nullable;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import androidx.annotation.WorkerThread;<a name="line.27"></a>
 <span class="sourceLineNo">028</span><a name="line.28"></a>
 <span class="sourceLineNo">029</span>import com.teamwork.autocomplete.filter.TokenFilter;<a name="line.29"></a>
 <span class="sourceLineNo">030</span><a name="line.30"></a>
@@ -41,65 +41,65 @@
 <span class="sourceLineNo">033</span>/**<a name="line.33"></a>
 <span class="sourceLineNo">034</span> * Internal use interface for a type adapter.<a name="line.34"></a>
 <span class="sourceLineNo">035</span> * &lt;p&gt;<a name="line.35"></a>
-<span class="sourceLineNo">036</span> * Used by {@link com.teamwork.autocomplete.MultiAutoComplete}'s main adapter to delegate filtering to one of the<a name="line.36"></a>
-<span class="sourceLineNo">037</span> * registered type adapters.<a name="line.37"></a>
-<span class="sourceLineNo">038</span> *<a name="line.38"></a>
-<span class="sourceLineNo">039</span> * @author Marco Salis<a name="line.39"></a>
-<span class="sourceLineNo">040</span> */<a name="line.40"></a>
-<span class="sourceLineNo">041</span>public interface TypeAdapterDelegate&lt;M&gt; {<a name="line.41"></a>
-<span class="sourceLineNo">042</span><a name="line.42"></a>
-<span class="sourceLineNo">043</span>    //region adapter items<a name="line.43"></a>
-<span class="sourceLineNo">044</span><a name="line.44"></a>
-<span class="sourceLineNo">045</span>    /**<a name="line.45"></a>
-<span class="sourceLineNo">046</span>     * @see android.widget.BaseAdapter#registerDataSetObserver(DataSetObserver)<a name="line.46"></a>
-<span class="sourceLineNo">047</span>     */<a name="line.47"></a>
-<span class="sourceLineNo">048</span>    void registerDataSetObserver(@NonNull DataSetObserver observer);<a name="line.48"></a>
-<span class="sourceLineNo">049</span><a name="line.49"></a>
-<span class="sourceLineNo">050</span>    /**<a name="line.50"></a>
-<span class="sourceLineNo">051</span>     * @see android.widget.BaseAdapter#unregisterDataSetObserver(DataSetObserver)<a name="line.51"></a>
-<span class="sourceLineNo">052</span>     */<a name="line.52"></a>
-<span class="sourceLineNo">053</span>    void unregisterDataSetObserver(@NonNull DataSetObserver observer);<a name="line.53"></a>
-<span class="sourceLineNo">054</span><a name="line.54"></a>
-<span class="sourceLineNo">055</span>    /**<a name="line.55"></a>
-<span class="sourceLineNo">056</span>     * Set the list of currently filtered items into the type adapter.<a name="line.56"></a>
-<span class="sourceLineNo">057</span>     * This will be called by the {@link Filter#performFiltering(CharSequence)} method.<a name="line.57"></a>
-<span class="sourceLineNo">058</span>     *<a name="line.58"></a>
-<span class="sourceLineNo">059</span>     * @param items A list of items to set in the adapter.<a name="line.59"></a>
-<span class="sourceLineNo">060</span>     */<a name="line.60"></a>
-<span class="sourceLineNo">061</span>    @MainThread<a name="line.61"></a>
-<span class="sourceLineNo">062</span>    void setFilteredItems(@NonNull List&lt;M&gt; items);<a name="line.62"></a>
-<span class="sourceLineNo">063</span><a name="line.63"></a>
-<span class="sourceLineNo">064</span>    /**<a name="line.64"></a>
-<span class="sourceLineNo">065</span>     * Get the current count of filtered items in the type adapter.<a name="line.65"></a>
-<span class="sourceLineNo">066</span>     */<a name="line.66"></a>
-<span class="sourceLineNo">067</span>    @MainThread<a name="line.67"></a>
-<span class="sourceLineNo">068</span>    int getCount();<a name="line.68"></a>
-<span class="sourceLineNo">069</span><a name="line.69"></a>
-<span class="sourceLineNo">070</span>    /**<a name="line.70"></a>
-<span class="sourceLineNo">071</span>     * Return the item at the passed position in the type adapter.<a name="line.71"></a>
-<span class="sourceLineNo">072</span>     *<a name="line.72"></a>
-<span class="sourceLineNo">073</span>     * @param position The position in the adapter.<a name="line.73"></a>
-<span class="sourceLineNo">074</span>     * @return The item.<a name="line.74"></a>
-<span class="sourceLineNo">075</span>     */<a name="line.75"></a>
-<span class="sourceLineNo">076</span>    @MainThread<a name="line.76"></a>
-<span class="sourceLineNo">077</span>    @NonNull M getItem(int position);<a name="line.77"></a>
-<span class="sourceLineNo">078</span><a name="line.78"></a>
-<span class="sourceLineNo">079</span>    /**<a name="line.79"></a>
-<span class="sourceLineNo">080</span>     * Return the item identifier as specified by {@link android.widget.BaseAdapter#getItemId(int)}.<a name="line.80"></a>
-<span class="sourceLineNo">081</span>     *<a name="line.81"></a>
-<span class="sourceLineNo">082</span>     * @param position The position of the item.<a name="line.82"></a>
-<span class="sourceLineNo">083</span>     * @return The numeric identifier of the item at the passed position.<a name="line.83"></a>
-<span class="sourceLineNo">084</span>     */<a name="line.84"></a>
-<span class="sourceLineNo">085</span>    @MainThread<a name="line.85"></a>
-<span class="sourceLineNo">086</span>    long getItemId(int position);<a name="line.86"></a>
-<span class="sourceLineNo">087</span><a name="line.87"></a>
-<span class="sourceLineNo">088</span>    //endregion<a name="line.88"></a>
+<span class="sourceLineNo">036</span> * Used by {@link com.teamwork.autocomplete.MultiAutoComplete}'s main adapter to delegate filtering to one of the registered type adapters.<a name="line.36"></a>
+<span class="sourceLineNo">037</span> *<a name="line.37"></a>
+<span class="sourceLineNo">038</span> * @author Marco Salis<a name="line.38"></a>
+<span class="sourceLineNo">039</span> */<a name="line.39"></a>
+<span class="sourceLineNo">040</span>public interface TypeAdapterDelegate&lt;M&gt; {<a name="line.40"></a>
+<span class="sourceLineNo">041</span><a name="line.41"></a>
+<span class="sourceLineNo">042</span>    //region adapter items<a name="line.42"></a>
+<span class="sourceLineNo">043</span><a name="line.43"></a>
+<span class="sourceLineNo">044</span>    /**<a name="line.44"></a>
+<span class="sourceLineNo">045</span>     * @see android.widget.BaseAdapter#registerDataSetObserver(DataSetObserver)<a name="line.45"></a>
+<span class="sourceLineNo">046</span>     */<a name="line.46"></a>
+<span class="sourceLineNo">047</span>    void registerDataSetObserver(@NonNull DataSetObserver observer);<a name="line.47"></a>
+<span class="sourceLineNo">048</span><a name="line.48"></a>
+<span class="sourceLineNo">049</span>    /**<a name="line.49"></a>
+<span class="sourceLineNo">050</span>     * @see android.widget.BaseAdapter#unregisterDataSetObserver(DataSetObserver)<a name="line.50"></a>
+<span class="sourceLineNo">051</span>     */<a name="line.51"></a>
+<span class="sourceLineNo">052</span>    void unregisterDataSetObserver(@NonNull DataSetObserver observer);<a name="line.52"></a>
+<span class="sourceLineNo">053</span><a name="line.53"></a>
+<span class="sourceLineNo">054</span>    /**<a name="line.54"></a>
+<span class="sourceLineNo">055</span>     * Set the list of currently filtered items into the type adapter.<a name="line.55"></a>
+<span class="sourceLineNo">056</span>     * This will be called by the &lt;code&gt;Filter.performFiltering(CharSequence)&lt;/code&gt; method.<a name="line.56"></a>
+<span class="sourceLineNo">057</span>     *<a name="line.57"></a>
+<span class="sourceLineNo">058</span>     * @param items A list of items to set in the adapter.<a name="line.58"></a>
+<span class="sourceLineNo">059</span>     */<a name="line.59"></a>
+<span class="sourceLineNo">060</span>    @MainThread<a name="line.60"></a>
+<span class="sourceLineNo">061</span>    void setFilteredItems(@NonNull List&lt;M&gt; items);<a name="line.61"></a>
+<span class="sourceLineNo">062</span><a name="line.62"></a>
+<span class="sourceLineNo">063</span>    /**<a name="line.63"></a>
+<span class="sourceLineNo">064</span>     * Get the current count of filtered items in the type adapter.<a name="line.64"></a>
+<span class="sourceLineNo">065</span>     */<a name="line.65"></a>
+<span class="sourceLineNo">066</span>    @MainThread<a name="line.66"></a>
+<span class="sourceLineNo">067</span>    int getCount();<a name="line.67"></a>
+<span class="sourceLineNo">068</span><a name="line.68"></a>
+<span class="sourceLineNo">069</span>    /**<a name="line.69"></a>
+<span class="sourceLineNo">070</span>     * Return the item at the passed position in the type adapter.<a name="line.70"></a>
+<span class="sourceLineNo">071</span>     *<a name="line.71"></a>
+<span class="sourceLineNo">072</span>     * @param position The position in the adapter.<a name="line.72"></a>
+<span class="sourceLineNo">073</span>     * @return The item.<a name="line.73"></a>
+<span class="sourceLineNo">074</span>     */<a name="line.74"></a>
+<span class="sourceLineNo">075</span>    @MainThread<a name="line.75"></a>
+<span class="sourceLineNo">076</span>    @NonNull M getItem(int position);<a name="line.76"></a>
+<span class="sourceLineNo">077</span><a name="line.77"></a>
+<span class="sourceLineNo">078</span>    /**<a name="line.78"></a>
+<span class="sourceLineNo">079</span>     * Return the item identifier as specified by {@link android.widget.BaseAdapter#getItemId(int)}.<a name="line.79"></a>
+<span class="sourceLineNo">080</span>     *<a name="line.80"></a>
+<span class="sourceLineNo">081</span>     * @param position The position of the item.<a name="line.81"></a>
+<span class="sourceLineNo">082</span>     * @return The numeric identifier of the item at the passed position.<a name="line.82"></a>
+<span class="sourceLineNo">083</span>     */<a name="line.83"></a>
+<span class="sourceLineNo">084</span>    @MainThread<a name="line.84"></a>
+<span class="sourceLineNo">085</span>    long getItemId(int position);<a name="line.85"></a>
+<span class="sourceLineNo">086</span><a name="line.86"></a>
+<span class="sourceLineNo">087</span>    //endregion<a name="line.87"></a>
+<span class="sourceLineNo">088</span><a name="line.88"></a>
 <span class="sourceLineNo">089</span><a name="line.89"></a>
 <span class="sourceLineNo">090</span>    //region layout and view binding<a name="line.90"></a>
 <span class="sourceLineNo">091</span><a name="line.91"></a>
 <span class="sourceLineNo">092</span>    /**<a name="line.92"></a>
-<span class="sourceLineNo">093</span>     * Retrieve the view for the given position using the inflater or the view holder associated to the view itself,<a name="line.93"></a>
-<span class="sourceLineNo">094</span>     * and binds the data to it.<a name="line.94"></a>
+<span class="sourceLineNo">093</span>     * Retrieve the view for the given position using the inflater or the view holder associated to the view itself, and binds the data to<a name="line.93"></a>
+<span class="sourceLineNo">094</span>     * it.<a name="line.94"></a>
 <span class="sourceLineNo">095</span>     *<a name="line.95"></a>
 <span class="sourceLineNo">096</span>     * @param inflater    The {@link LayoutInflater} for inflating the view.<a name="line.96"></a>
 <span class="sourceLineNo">097</span>     * @param position    The adapter position of the view to retrieve.<a name="line.97"></a>
@@ -107,7 +107,7 @@
 <span class="sourceLineNo">099</span>     * @param parent      The view parent for view inflation.<a name="line.99"></a>
 <span class="sourceLineNo">100</span>     * @param constraint  The current text constraint to pass the view binder.<a name="line.100"></a>
 <span class="sourceLineNo">101</span>     * @return The view for the element at the passed position.<a name="line.101"></a>
-<span class="sourceLineNo">102</span>     * @see {@link android.widget.BaseAdapter#getView(int, View, ViewGroup)}<a name="line.102"></a>
+<span class="sourceLineNo">102</span>     * @see android.widget.BaseAdapter#getView(int, View, ViewGroup)<a name="line.102"></a>
 <span class="sourceLineNo">103</span>     */<a name="line.103"></a>
 <span class="sourceLineNo">104</span>    @NonNull View getView(@NonNull LayoutInflater inflater,<a name="line.104"></a>
 <span class="sourceLineNo">105</span>                          int position,<a name="line.105"></a>
@@ -117,34 +117,35 @@
 <span class="sourceLineNo">109</span><a name="line.109"></a>
 <span class="sourceLineNo">110</span>    //endregion<a name="line.110"></a>
 <span class="sourceLineNo">111</span><a name="line.111"></a>
-<span class="sourceLineNo">112</span>    //region tokens, filters and constraints<a name="line.112"></a>
-<span class="sourceLineNo">113</span><a name="line.113"></a>
-<span class="sourceLineNo">114</span>    /**<a name="line.114"></a>
-<span class="sourceLineNo">115</span>     * Return the typed {@link TokenFilter} for this type adapter.<a name="line.115"></a>
-<span class="sourceLineNo">116</span>     */<a name="line.116"></a>
-<span class="sourceLineNo">117</span>    @NonNull TokenFilter&lt;M&gt; getFilter();<a name="line.117"></a>
-<span class="sourceLineNo">118</span><a name="line.118"></a>
-<span class="sourceLineNo">119</span>    /**<a name="line.119"></a>
-<span class="sourceLineNo">120</span>     * Called by {@link Filter#performFiltering(CharSequence)} off the main thread to filter the list in this type<a name="line.120"></a>
-<span class="sourceLineNo">121</span>     * adapter based on the passed constraint.<a name="line.121"></a>
-<span class="sourceLineNo">122</span>     *<a name="line.122"></a>
-<span class="sourceLineNo">123</span>     * @param constraint A text constraint to filter the adapter elements.<a name="line.123"></a>
-<span class="sourceLineNo">124</span>     * @return A List of filtered items from this adapter.<a name="line.124"></a>
-<span class="sourceLineNo">125</span>     */<a name="line.125"></a>
-<span class="sourceLineNo">126</span>    @WorkerThread<a name="line.126"></a>
-<span class="sourceLineNo">127</span>    @NonNull List&lt;M&gt; performFiltering(@NonNull CharSequence constraint);<a name="line.127"></a>
-<span class="sourceLineNo">128</span><a name="line.128"></a>
-<span class="sourceLineNo">129</span>    /**<a name="line.129"></a>
-<span class="sourceLineNo">130</span>     * Called by the {@link android.widget.MultiAutoCompleteTextView} when the text typed by the user has changed.<a name="line.130"></a>
-<span class="sourceLineNo">131</span>     *<a name="line.131"></a>
-<span class="sourceLineNo">132</span>     * @param text The text currently present in the editable text view.<a name="line.132"></a>
-<span class="sourceLineNo">133</span>     */<a name="line.133"></a>
-<span class="sourceLineNo">134</span>    @MainThread<a name="line.134"></a>
-<span class="sourceLineNo">135</span>    void onTextChanged(@NonNull CharSequence text);<a name="line.135"></a>
-<span class="sourceLineNo">136</span><a name="line.136"></a>
-<span class="sourceLineNo">137</span>    //endregion<a name="line.137"></a>
-<span class="sourceLineNo">138</span><a name="line.138"></a>
-<span class="sourceLineNo">139</span>}<a name="line.139"></a>
+<span class="sourceLineNo">112</span><a name="line.112"></a>
+<span class="sourceLineNo">113</span>    //region tokens, filters and constraints<a name="line.113"></a>
+<span class="sourceLineNo">114</span><a name="line.114"></a>
+<span class="sourceLineNo">115</span>    /**<a name="line.115"></a>
+<span class="sourceLineNo">116</span>     * Return the typed {@link TokenFilter} for this type adapter.<a name="line.116"></a>
+<span class="sourceLineNo">117</span>     */<a name="line.117"></a>
+<span class="sourceLineNo">118</span>    @NonNull TokenFilter&lt;M&gt; getFilter();<a name="line.118"></a>
+<span class="sourceLineNo">119</span><a name="line.119"></a>
+<span class="sourceLineNo">120</span>    /**<a name="line.120"></a>
+<span class="sourceLineNo">121</span>     * Called by &lt;code&gt;Filter#performFiltering(CharSequence)&lt;/code&gt; off the main thread to filter the list in this type adapter based on the<a name="line.121"></a>
+<span class="sourceLineNo">122</span>     * passed constraint.<a name="line.122"></a>
+<span class="sourceLineNo">123</span>     *<a name="line.123"></a>
+<span class="sourceLineNo">124</span>     * @param constraint A text constraint to filter the adapter elements.<a name="line.124"></a>
+<span class="sourceLineNo">125</span>     * @return A List of filtered items from this adapter.<a name="line.125"></a>
+<span class="sourceLineNo">126</span>     */<a name="line.126"></a>
+<span class="sourceLineNo">127</span>    @WorkerThread<a name="line.127"></a>
+<span class="sourceLineNo">128</span>    @NonNull List&lt;M&gt; performFiltering(@NonNull CharSequence constraint);<a name="line.128"></a>
+<span class="sourceLineNo">129</span><a name="line.129"></a>
+<span class="sourceLineNo">130</span>    /**<a name="line.130"></a>
+<span class="sourceLineNo">131</span>     * Called by the {@link android.widget.MultiAutoCompleteTextView} when the text typed by the user has changed.<a name="line.131"></a>
+<span class="sourceLineNo">132</span>     *<a name="line.132"></a>
+<span class="sourceLineNo">133</span>     * @param text The text currently present in the editable text view.<a name="line.133"></a>
+<span class="sourceLineNo">134</span>     */<a name="line.134"></a>
+<span class="sourceLineNo">135</span>    @MainThread<a name="line.135"></a>
+<span class="sourceLineNo">136</span>    void onTextChanged(@NonNull CharSequence text);<a name="line.136"></a>
+<span class="sourceLineNo">137</span><a name="line.137"></a>
+<span class="sourceLineNo">138</span>    //endregion<a name="line.138"></a>
+<span class="sourceLineNo">139</span><a name="line.139"></a>
+<span class="sourceLineNo">140</span>}<a name="line.140"></a>
 
 
 

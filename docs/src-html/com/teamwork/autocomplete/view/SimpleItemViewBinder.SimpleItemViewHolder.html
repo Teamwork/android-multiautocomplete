@@ -7,7 +7,7 @@
 <body>
 <div class="sourceContainer">
 <pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
-<span class="sourceLineNo">002</span> * Copyright 2017 Teamwork.com<a name="line.2"></a>
+<span class="sourceLineNo">002</span> * Copyright 2017-present Teamwork.com<a name="line.2"></a>
 <span class="sourceLineNo">003</span> *<a name="line.3"></a>
 <span class="sourceLineNo">004</span> * Licensed under the Apache License, Version 2.0 (the "License");<a name="line.4"></a>
 <span class="sourceLineNo">005</span> * you may not use this file except in compliance with the License.<a name="line.5"></a>
@@ -24,84 +24,86 @@
 <span class="sourceLineNo">016</span><a name="line.16"></a>
 <span class="sourceLineNo">017</span>package com.teamwork.autocomplete.view;<a name="line.17"></a>
 <span class="sourceLineNo">018</span><a name="line.18"></a>
-<span class="sourceLineNo">019</span>import android.support.annotation.NonNull;<a name="line.19"></a>
-<span class="sourceLineNo">020</span>import android.support.annotation.Nullable;<a name="line.20"></a>
-<span class="sourceLineNo">021</span>import android.view.View;<a name="line.21"></a>
-<span class="sourceLineNo">022</span>import android.widget.ImageView;<a name="line.22"></a>
-<span class="sourceLineNo">023</span>import android.widget.TextView;<a name="line.23"></a>
-<span class="sourceLineNo">024</span><a name="line.24"></a>
-<span class="sourceLineNo">025</span>import com.teamwork.autocomplete.R;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>import com.teamwork.autocomplete.model.SimpleItem;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>import com.teamwork.autocomplete.util.SpannableUtils;<a name="line.27"></a>
-<span class="sourceLineNo">028</span><a name="line.28"></a>
-<span class="sourceLineNo">029</span>/**<a name="line.29"></a>
-<span class="sourceLineNo">030</span> * Item view binder for a {@link SimpleItem} model.<a name="line.30"></a>
-<span class="sourceLineNo">031</span> * &lt;p&gt;<a name="line.31"></a>
-<span class="sourceLineNo">032</span> * It provides very basic behaviour for components that don't need any customization:<a name="line.32"></a>
-<span class="sourceLineNo">033</span> * &lt;ul&gt;<a name="line.33"></a>
-<span class="sourceLineNo">034</span> * &lt;li&gt;{@link #getItemId(SimpleItem)} returns the item's hash code&lt;/li&gt;<a name="line.34"></a>
-<span class="sourceLineNo">035</span> * &lt;li&gt;It binds the data to the R.layout.simple_item layout&lt;/li&gt;<a name="line.35"></a>
-<span class="sourceLineNo">036</span> * &lt;li&gt;It highlights the portion of text that matches the current text constraint&lt;/li&gt;<a name="line.36"></a>
-<span class="sourceLineNo">037</span> * &lt;/ul&gt;<a name="line.37"></a>
-<span class="sourceLineNo">038</span> * To prevent the library to have dependencies on any image loading/caching framework, images are not loaded into the<a name="line.38"></a>
-<span class="sourceLineNo">039</span> * image view. To implement your own loading, override {@link #onImageViewBind(ImageView, SimpleItem)}.<a name="line.39"></a>
-<span class="sourceLineNo">040</span> *<a name="line.40"></a>
-<span class="sourceLineNo">041</span> * @author Marco Salis<a name="line.41"></a>
-<span class="sourceLineNo">042</span> */<a name="line.42"></a>
-<span class="sourceLineNo">043</span>@SuppressWarnings("WeakerAccess")<a name="line.43"></a>
-<span class="sourceLineNo">044</span>public class SimpleItemViewBinder implements AutoCompleteViewBinder&lt;SimpleItem&gt; {<a name="line.44"></a>
-<span class="sourceLineNo">045</span><a name="line.45"></a>
-<span class="sourceLineNo">046</span>    @Override<a name="line.46"></a>
-<span class="sourceLineNo">047</span>    public long getItemId(@NonNull SimpleItem item) {<a name="line.47"></a>
-<span class="sourceLineNo">048</span>        return item.hashCode();<a name="line.48"></a>
-<span class="sourceLineNo">049</span>    }<a name="line.49"></a>
-<span class="sourceLineNo">050</span><a name="line.50"></a>
-<span class="sourceLineNo">051</span>    @Override<a name="line.51"></a>
-<span class="sourceLineNo">052</span>    public int getItemLayoutId() {<a name="line.52"></a>
-<span class="sourceLineNo">053</span>        return R.layout.simple_item;<a name="line.53"></a>
-<span class="sourceLineNo">054</span>    }<a name="line.54"></a>
-<span class="sourceLineNo">055</span><a name="line.55"></a>
-<span class="sourceLineNo">056</span>    @Override<a name="line.56"></a>
-<span class="sourceLineNo">057</span>    public @NonNull AutoCompleteViewHolder getViewHolder(@NonNull View view) {<a name="line.57"></a>
-<span class="sourceLineNo">058</span>        return new SimpleItemViewHolder(view);<a name="line.58"></a>
-<span class="sourceLineNo">059</span>    }<a name="line.59"></a>
-<span class="sourceLineNo">060</span><a name="line.60"></a>
-<span class="sourceLineNo">061</span>    @Override<a name="line.61"></a>
-<span class="sourceLineNo">062</span>    public void bindData(@NonNull AutoCompleteViewHolder viewHolder, @NonNull SimpleItem item, @Nullable CharSequence constraint) {<a name="line.62"></a>
-<span class="sourceLineNo">063</span>        SimpleItemViewHolder itemViewHolder = (SimpleItemViewHolder) viewHolder;<a name="line.63"></a>
-<span class="sourceLineNo">064</span>        CharSequence text;<a name="line.64"></a>
-<span class="sourceLineNo">065</span>        if (constraint != null) { // highlight constraint text in bold if any<a name="line.65"></a>
-<span class="sourceLineNo">066</span>            text = SpannableUtils.setBoldSubText(item.getText(), constraint);<a name="line.66"></a>
-<span class="sourceLineNo">067</span>        } else {<a name="line.67"></a>
-<span class="sourceLineNo">068</span>            text = item.getText();<a name="line.68"></a>
-<span class="sourceLineNo">069</span>        }<a name="line.69"></a>
-<span class="sourceLineNo">070</span>        itemViewHolder.textView.setText(text);<a name="line.70"></a>
-<span class="sourceLineNo">071</span><a name="line.71"></a>
-<span class="sourceLineNo">072</span>        onImageViewBind(itemViewHolder.imageView, item);<a name="line.72"></a>
-<span class="sourceLineNo">073</span>    }<a name="line.73"></a>
-<span class="sourceLineNo">074</span><a name="line.74"></a>
-<span class="sourceLineNo">075</span>    /**<a name="line.75"></a>
-<span class="sourceLineNo">076</span>     * Override this to provide image loading to the {@link SimpleItemViewBinder} using your own image caching library.<a name="line.76"></a>
-<span class="sourceLineNo">077</span>     * &lt;p&gt;<a name="line.77"></a>
-<span class="sourceLineNo">078</span>     * The default implementation just sets the ImageView's visibility to {@link View#GONE}.<a name="line.78"></a>
-<span class="sourceLineNo">079</span>     */<a name="line.79"></a>
-<span class="sourceLineNo">080</span>    protected void onImageViewBind(@NonNull ImageView imageView, @NonNull SimpleItem item) {<a name="line.80"></a>
-<span class="sourceLineNo">081</span>        imageView.setVisibility(View.GONE);<a name="line.81"></a>
-<span class="sourceLineNo">082</span>    }<a name="line.82"></a>
-<span class="sourceLineNo">083</span><a name="line.83"></a>
-<span class="sourceLineNo">084</span>    public static class SimpleItemViewHolder extends AutoCompleteViewHolder {<a name="line.84"></a>
+<span class="sourceLineNo">019</span>import android.view.View;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import android.widget.ImageView;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import android.widget.TextView;<a name="line.21"></a>
+<span class="sourceLineNo">022</span><a name="line.22"></a>
+<span class="sourceLineNo">023</span>import androidx.annotation.NonNull;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import androidx.annotation.Nullable;<a name="line.24"></a>
+<span class="sourceLineNo">025</span><a name="line.25"></a>
+<span class="sourceLineNo">026</span>import com.teamwork.autocomplete.R;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.teamwork.autocomplete.model.SimpleItem;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.teamwork.autocomplete.util.SpannableUtils;<a name="line.28"></a>
+<span class="sourceLineNo">029</span><a name="line.29"></a>
+<span class="sourceLineNo">030</span>/**<a name="line.30"></a>
+<span class="sourceLineNo">031</span> * Item view binder for a {@link SimpleItem} model.<a name="line.31"></a>
+<span class="sourceLineNo">032</span> * &lt;p&gt;<a name="line.32"></a>
+<span class="sourceLineNo">033</span> * It provides very basic behaviour for components that don't need any customization:<a name="line.33"></a>
+<span class="sourceLineNo">034</span> * &lt;ul&gt;<a name="line.34"></a>
+<span class="sourceLineNo">035</span> * &lt;li&gt;{@link #getItemId(SimpleItem)} returns the item's hash code&lt;/li&gt;<a name="line.35"></a>
+<span class="sourceLineNo">036</span> * &lt;li&gt;It binds the data to the R.layout.simple_item layout&lt;/li&gt;<a name="line.36"></a>
+<span class="sourceLineNo">037</span> * &lt;li&gt;It highlights the portion of text that matches the current text constraint&lt;/li&gt;<a name="line.37"></a>
+<span class="sourceLineNo">038</span> * &lt;/ul&gt;<a name="line.38"></a>
+<span class="sourceLineNo">039</span> * To prevent the library to have dependencies on any image loading/caching framework, images are not loaded into the<a name="line.39"></a>
+<span class="sourceLineNo">040</span> * image view. To implement your own loading, override {@link #onImageViewBind(ImageView, SimpleItem)}.<a name="line.40"></a>
+<span class="sourceLineNo">041</span> *<a name="line.41"></a>
+<span class="sourceLineNo">042</span> * @author Marco Salis<a name="line.42"></a>
+<span class="sourceLineNo">043</span> */<a name="line.43"></a>
+<span class="sourceLineNo">044</span>@SuppressWarnings("WeakerAccess")<a name="line.44"></a>
+<span class="sourceLineNo">045</span>public class SimpleItemViewBinder implements AutoCompleteViewBinder&lt;SimpleItem&gt; {<a name="line.45"></a>
+<span class="sourceLineNo">046</span><a name="line.46"></a>
+<span class="sourceLineNo">047</span>    @Override<a name="line.47"></a>
+<span class="sourceLineNo">048</span>    public long getItemId(@NonNull SimpleItem item) {<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        return item.hashCode();<a name="line.49"></a>
+<span class="sourceLineNo">050</span>    }<a name="line.50"></a>
+<span class="sourceLineNo">051</span><a name="line.51"></a>
+<span class="sourceLineNo">052</span>    @Override<a name="line.52"></a>
+<span class="sourceLineNo">053</span>    public int getItemLayoutId() {<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        return R.layout.simple_item;<a name="line.54"></a>
+<span class="sourceLineNo">055</span>    }<a name="line.55"></a>
+<span class="sourceLineNo">056</span><a name="line.56"></a>
+<span class="sourceLineNo">057</span>    @Override<a name="line.57"></a>
+<span class="sourceLineNo">058</span>    public @NonNull AutoCompleteViewHolder getViewHolder(@NonNull View view) {<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        return new SimpleItemViewHolder(view);<a name="line.59"></a>
+<span class="sourceLineNo">060</span>    }<a name="line.60"></a>
+<span class="sourceLineNo">061</span><a name="line.61"></a>
+<span class="sourceLineNo">062</span>    @Override<a name="line.62"></a>
+<span class="sourceLineNo">063</span>    public void bindData(@NonNull AutoCompleteViewHolder viewHolder, @NonNull SimpleItem item, @Nullable CharSequence constraint) {<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        SimpleItemViewHolder itemViewHolder = (SimpleItemViewHolder) viewHolder;<a name="line.64"></a>
+<span class="sourceLineNo">065</span>        CharSequence text;<a name="line.65"></a>
+<span class="sourceLineNo">066</span>        if (constraint != null) { // highlight constraint text in bold if any<a name="line.66"></a>
+<span class="sourceLineNo">067</span>            text = SpannableUtils.setBoldSubText(item.getText(), constraint);<a name="line.67"></a>
+<span class="sourceLineNo">068</span>        } else {<a name="line.68"></a>
+<span class="sourceLineNo">069</span>            text = item.getText();<a name="line.69"></a>
+<span class="sourceLineNo">070</span>        }<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        itemViewHolder.textView.setText(text);<a name="line.71"></a>
+<span class="sourceLineNo">072</span><a name="line.72"></a>
+<span class="sourceLineNo">073</span>        onImageViewBind(itemViewHolder.imageView, item);<a name="line.73"></a>
+<span class="sourceLineNo">074</span>    }<a name="line.74"></a>
+<span class="sourceLineNo">075</span><a name="line.75"></a>
+<span class="sourceLineNo">076</span>    /**<a name="line.76"></a>
+<span class="sourceLineNo">077</span>     * Override this to provide image loading to the {@link SimpleItemViewBinder} using your own image caching library.<a name="line.77"></a>
+<span class="sourceLineNo">078</span>     * &lt;p&gt;<a name="line.78"></a>
+<span class="sourceLineNo">079</span>     * The default implementation just sets the ImageView's visibility to {@link View#GONE}.<a name="line.79"></a>
+<span class="sourceLineNo">080</span>     */<a name="line.80"></a>
+<span class="sourceLineNo">081</span>    protected void onImageViewBind(@NonNull ImageView imageView, @SuppressWarnings("unused") @NonNull SimpleItem item) {<a name="line.81"></a>
+<span class="sourceLineNo">082</span>        imageView.setVisibility(View.GONE);<a name="line.82"></a>
+<span class="sourceLineNo">083</span>    }<a name="line.83"></a>
+<span class="sourceLineNo">084</span><a name="line.84"></a>
 <span class="sourceLineNo">085</span><a name="line.85"></a>
-<span class="sourceLineNo">086</span>        public final ImageView imageView;<a name="line.86"></a>
-<span class="sourceLineNo">087</span>        public final TextView textView;<a name="line.87"></a>
-<span class="sourceLineNo">088</span><a name="line.88"></a>
-<span class="sourceLineNo">089</span>        public SimpleItemViewHolder(@NonNull View view) {<a name="line.89"></a>
-<span class="sourceLineNo">090</span>            super(view);<a name="line.90"></a>
-<span class="sourceLineNo">091</span>            imageView = view.findViewById(R.id.imageView);<a name="line.91"></a>
-<span class="sourceLineNo">092</span>            textView = view.findViewById(R.id.textView);<a name="line.92"></a>
-<span class="sourceLineNo">093</span>        }<a name="line.93"></a>
-<span class="sourceLineNo">094</span>    }<a name="line.94"></a>
-<span class="sourceLineNo">095</span><a name="line.95"></a>
-<span class="sourceLineNo">096</span>}<a name="line.96"></a>
+<span class="sourceLineNo">086</span>    public static class SimpleItemViewHolder extends AutoCompleteViewHolder {<a name="line.86"></a>
+<span class="sourceLineNo">087</span><a name="line.87"></a>
+<span class="sourceLineNo">088</span>        public final ImageView imageView;<a name="line.88"></a>
+<span class="sourceLineNo">089</span>        public final TextView textView;<a name="line.89"></a>
+<span class="sourceLineNo">090</span><a name="line.90"></a>
+<span class="sourceLineNo">091</span>        public SimpleItemViewHolder(@NonNull View view) {<a name="line.91"></a>
+<span class="sourceLineNo">092</span>            super(view);<a name="line.92"></a>
+<span class="sourceLineNo">093</span>            imageView = view.findViewById(R.id.imageView);<a name="line.93"></a>
+<span class="sourceLineNo">094</span>            textView = view.findViewById(R.id.textView);<a name="line.94"></a>
+<span class="sourceLineNo">095</span>        }<a name="line.95"></a>
+<span class="sourceLineNo">096</span>    }<a name="line.96"></a>
+<span class="sourceLineNo">097</span><a name="line.97"></a>
+<span class="sourceLineNo">098</span>}<a name="line.98"></a>
 
 
 

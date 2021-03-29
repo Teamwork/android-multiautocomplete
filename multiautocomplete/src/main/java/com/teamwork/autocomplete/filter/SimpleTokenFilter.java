@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Teamwork.com
+ * Copyright 2017-present Teamwork.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ import androidx.annotation.NonNull;
 /**
  * Simple implementation of a {@link BaseTokenFilter} which supports all tokens and does not use handles.
  * <p>
- * Can be used to trigger filtering on all strings in combination with a {@link MultiAutoCompleteTextView.CommaTokenizer}
- * or another custom tokenizer which uses a different separator.
+ * Can be used to trigger filtering on all strings in combination with a {@link MultiAutoCompleteTextView.CommaTokenizer} or another custom
+ * tokenizer which uses a different separator.
  *
  * @author Marco Salis
  */

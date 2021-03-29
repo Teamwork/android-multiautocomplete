@@ -24,7 +24,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Matchers.anyObject;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -43,17 +43,17 @@ public class AutoCompleteAdapterTest extends Filter {
     private SimpleTokenFilter<String> spiedFilter;
 
     @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
 
         dataset = Arrays.asList("Ireland", "Italy", "United Kingdom", "Spain");
 
-        when(viewBinder.getItemId(anyObject())).then(invocation -> (long) invocation.getArguments()[0].hashCode());
+        when(viewBinder.getItemId(any())).then(invocation -> (long) invocation.getArguments()[0].hashCode());
         spiedFilter = spy(new SimpleTokenFilter<>());
         typeAdapter = AutoCompleteTypeAdapter.Build.from(viewBinder, spiedFilter);
         typeAdapter.setItems(dataset);
         autoCompleteAdapter = new AutoCompleteAdapter(RuntimeEnvironment.application,
-                Collections.singletonList((TypeAdapterDelegate) typeAdapter), delayer);
+                Collections.singletonList((TypeAdapterDelegate<?>) typeAdapter), delayer);
     }
 
     @Test
@@ -111,10 +111,10 @@ public class AutoCompleteAdapterTest extends Filter {
 
         performFiltering(filter, "it");
 
-        verify(((TypeAdapterDelegate) typeAdapter).getFilter()).stripHandle(eq("it"));
-        verify(((TypeAdapterDelegate) typeAdapter).getFilter()).supportsToken("it");
+        verify(((TypeAdapterDelegate<?>) typeAdapter).getFilter()).stripHandle(eq("it"));
+        verify(((TypeAdapterDelegate<?>) typeAdapter).getFilter()).supportsToken("it");
         //noinspection unchecked
-        verify(((TypeAdapterDelegate) typeAdapter).getFilter()).performFiltering("it", dataset);
+        verify(((TypeAdapterDelegate<String>) typeAdapter).getFilter()).performFiltering("it", dataset);
     }
 
     // running the asynchronous Filter.filter() yields to unstable tests which need to rely on Thread.sleep

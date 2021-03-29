@@ -36,7 +36,7 @@ Using **MultiAutoComplete** can be as easy as this:
 ## Download
 Add dependency via **Gradle**:
 ```groovy
-compile 'com.teamwork:android-multiautocomplete:0.2.6'
+compile 'com.teamwork:android-multiautocomplete:0.3.0'
 ```
 or **Maven**:
 ```xml

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Teamwork.com
+ * Copyright 2017-present Teamwork.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,9 +78,10 @@ public class SimpleItemViewBinder implements AutoCompleteViewBinder<SimpleItem> 
      * <p>
      * The default implementation just sets the ImageView's visibility to {@link View#GONE}.
      */
-    protected void onImageViewBind(@NonNull ImageView imageView, @NonNull SimpleItem item) {
+    protected void onImageViewBind(@NonNull ImageView imageView, @SuppressWarnings("unused") @NonNull SimpleItem item) {
         imageView.setVisibility(View.GONE);
     }
+
 
     public static class SimpleItemViewHolder extends AutoCompleteViewHolder {
 

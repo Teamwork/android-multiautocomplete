@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Teamwork.com
+ * Copyright 2017-present Teamwork.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,14 +26,13 @@ import androidx.annotation.NonNull;
 import java.util.Arrays;
 
 /**
- * Implementation of {@link android.widget.MultiAutoCompleteTextView.Tokenizer} that finds tokens which are prefixed by
- * one of the passed chars. This is useful, for example, to manage autocomplete for user handles ('@' prefix).
+ * Implementation of {@link android.widget.MultiAutoCompleteTextView.Tokenizer} that finds tokens which are prefixed by one of the passed
+ * chars. This is useful, for example, to manage autocomplete for user handles ('@' prefix).
  * <p>
- * Only one separator is supported per tokenizer. The default is the space character, to change override
- * {@link #getDefaultSeparator}.
+ * Only one separator is supported per tokenizer. The default is the space character, to change override {@link #getDefaultSeparator}.
  * <p>
- * This implementation does not filter on the token characters (i.e. '@han:dle;' is a valid token), but only terminates
- * it when a separator is found.
+ * This implementation does not filter on the token characters (i.e. '@han:dle;' is a valid token), but only terminates it when a separator
+ * is found.
  *
  * @author Marco Salis
  */
@@ -44,7 +43,7 @@ public class PrefixTokenizer implements MultiAutoCompleteTextView.Tokenizer {
     private final char[] prefixes;
 
     public PrefixTokenizer(char prefix) {
-        prefixes = new char[] { prefix };
+        prefixes = new char[]{prefix};
     }
 
     public PrefixTokenizer(char... prefixes) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Teamwork.com
+ * Copyright 2017-present Teamwork.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,8 +41,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Implementation of an "adapter of adapters" that is set into the {@link android.widget.MultiAutoCompleteTextView} to
- * manage and filter multiple data sets.
+ * Implementation of an "adapter of adapters" that is set into the {@link android.widget.MultiAutoCompleteTextView} to manage and filter
+ * multiple data sets.
  * <p>
  * The {@link Filter} component delegates returning the autocomplete filtered results to one of the registered adapters.
  *
@@ -53,16 +53,17 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
     private final NullTypeAdapterDelegate nullTypeAdapter = new NullTypeAdapterDelegate();
 
     private final LayoutInflater layoutInflater;
-    private final List<TypeAdapterDelegate> typeAdapters;
+    private final List<TypeAdapterDelegate<?>> typeAdapters;
     private final @Nullable MultiAutoComplete.Delayer delayer;
 
+    @SuppressWarnings("rawtypes")
     private TypeAdapterDelegate currentTypeAdapter = nullTypeAdapter;
     private AutoCompleteFilter filter;
 
     private CharSequence currentConstraint;
 
     AutoCompleteAdapter(@NonNull Context context,
-                        @NonNull List<TypeAdapterDelegate> typeAdapters,
+                        @NonNull List<TypeAdapterDelegate<?>> typeAdapters,
                         @Nullable MultiAutoComplete.Delayer delayer) {
         this.layoutInflater = LayoutInflater.from(context);
         this.typeAdapters = typeAdapters;
@@ -128,7 +129,7 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
             @SuppressLint("PrivateApi") Class<?> delayerInterface = Class.forName("android.widget.Filter$Delayer");
             Object delayerInstance = java.lang.reflect.Proxy.newProxyInstance(
                     delayerInterface.getClassLoader(),
-                    new Class[] { delayerInterface },
+                    new Class[]{delayerInterface},
                     (proxy, method, args) -> {
                         if (method.getName().equals("getPostingDelay")) {
                             CharSequence constraint = (CharSequence) args[0];
@@ -172,7 +173,7 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
 
             CharSequence constraint = null;
             List<Object> filteredData = new ArrayList<>();
-            TypeAdapterDelegate typeAdapter;
+            TypeAdapterDelegate<?> typeAdapter;
 
             if (token != null) {
                 // retrieve the first type adapter that supports this token
@@ -184,6 +185,7 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
                 filteredData.addAll(filteredList);
 
                 // sort filtered results if there is a custom comparator
+                @SuppressWarnings("rawtypes")
                 ConstraintComparator comparator = typeAdapter.getFilter().getConstraintComparator();
                 if (comparator != null) {
                     comparator.setConstraint(constraint);
@@ -206,8 +208,8 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
             return filterResults;
         }
 
-        private @NonNull TypeAdapterDelegate getCurrentTypeAdapter(@NonNull CharSequence token) {
-            for (TypeAdapterDelegate typeAdapter : typeAdapters) {
+        private @NonNull TypeAdapterDelegate<?> getCurrentTypeAdapter(@NonNull CharSequence token) {
+            for (TypeAdapterDelegate<?> typeAdapter : typeAdapters) {
                 if (typeAdapter.getFilter().supportsToken(token)) {
                     return typeAdapter;
                 }
@@ -216,12 +218,12 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         protected void publishResults(CharSequence token, FilterResults results) {
             FilterResultsWrapper resultsWrapper = (FilterResultsWrapper) results.values;
             currentConstraint = resultsWrapper.constraint;
             currentTypeAdapter = resultsWrapper.typeAdapter;
 
-            //noinspection unchecked
             currentTypeAdapter.setFilteredItems(resultsWrapper.results);
             notifyDataSetChanged();
         }
@@ -234,12 +236,12 @@ class AutoCompleteAdapter extends BaseAdapter implements Filterable {
     }
 
     /**
-     * Simple wrapper for a {@link android.widget.Filter.FilterResults#values} to post the {@link
-     * TypeAdapterDelegate} to the main thread from {@link Filter#performFiltering(CharSequence)}.
+     * Simple wrapper for a <code>android.widget.Filter.FilterResults.values</code> to post the {@link TypeAdapterDelegate} to the main
+     * thread from <code>Filter#performFiltering(CharSequence)</code>.
      */
     private static class FilterResultsWrapper {
         CharSequence constraint;
-        TypeAdapterDelegate typeAdapter;
+        TypeAdapterDelegate<?> typeAdapter;
         List<?> results;
     }
 

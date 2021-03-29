@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Teamwork.com
+ * Copyright 2017-present Teamwork.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ import com.teamwork.autocomplete.view.AutoCompleteViewHolder;
  */
 public class NullTypeAdapterDelegate extends BaseTypeAdapterDelegate<Object> {
 
+    @SuppressWarnings("unused")
     private final NullViewBinder viewBinder = new NullViewBinder();
     private final NullTokenFilter filter = new NullTokenFilter();
 
@@ -50,6 +51,7 @@ public class NullTypeAdapterDelegate extends BaseTypeAdapterDelegate<Object> {
         return filter;
     }
 
+
     private static class NullViewBinder implements AutoCompleteViewBinder<Object> {
         @Override public long getItemId(@NonNull Object item) {
             return 0;
@@ -62,7 +64,6 @@ public class NullTypeAdapterDelegate extends BaseTypeAdapterDelegate<Object> {
 
         @Override
         public @NonNull AutoCompleteViewHolder getViewHolder(@NonNull View view) {
-            //noinspection ConstantConditions
             return null;
         }
 
@@ -70,6 +71,7 @@ public class NullTypeAdapterDelegate extends BaseTypeAdapterDelegate<Object> {
         public void bindData(@NonNull AutoCompleteViewHolder viewHolder, @NonNull Object item, @Nullable CharSequence constraint) {
         }
     }
+
 
     private static class NullTokenFilter extends BaseTokenFilter<Object> {
 

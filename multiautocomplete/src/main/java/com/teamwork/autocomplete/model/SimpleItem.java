@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Teamwork.com
+ * Copyright 2017-present Teamwork.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ public class SimpleItem {
         this.text = text;
     }
 
+    @SuppressWarnings("unused")
     public @Nullable String getImageUrl() {
         return imageUrl;
     }
@@ -46,7 +47,7 @@ public class SimpleItem {
     }
 
     @Override
-    public String toString() {
+    public @NonNull String toString() {
         return text.toString();
     }
 

@@ -7,7 +7,7 @@
 <body>
 <div class="sourceContainer">
 <pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
-<span class="sourceLineNo">002</span> * Copyright 2017 Teamwork.com<a name="line.2"></a>
+<span class="sourceLineNo">002</span> * Copyright 2017-present Teamwork.com<a name="line.2"></a>
 <span class="sourceLineNo">003</span> *<a name="line.3"></a>
 <span class="sourceLineNo">004</span> * Licensed under the Apache License, Version 2.0 (the "License");<a name="line.4"></a>
 <span class="sourceLineNo">005</span> * you may not use this file except in compliance with the License.<a name="line.5"></a>
@@ -24,40 +24,39 @@
 <span class="sourceLineNo">016</span><a name="line.16"></a>
 <span class="sourceLineNo">017</span>package com.teamwork.autocomplete.adapter;<a name="line.17"></a>
 <span class="sourceLineNo">018</span><a name="line.18"></a>
-<span class="sourceLineNo">019</span>import android.support.annotation.NonNull;<a name="line.19"></a>
+<span class="sourceLineNo">019</span>import androidx.annotation.NonNull;<a name="line.19"></a>
 <span class="sourceLineNo">020</span><a name="line.20"></a>
 <span class="sourceLineNo">021</span>/**<a name="line.21"></a>
-<span class="sourceLineNo">022</span> * Listener interface for components tied to an {@link TypeAdapterDelegate} that need a callback when a full token<a name="line.22"></a>
-<span class="sourceLineNo">023</span> * gets added or removed within the text contents of an editable TextView.<a name="line.23"></a>
+<span class="sourceLineNo">022</span> * Listener interface for components tied to an {@link TypeAdapterDelegate} that need a callback when a full token gets added or removed<a name="line.22"></a>
+<span class="sourceLineNo">023</span> * within the text contents of an editable TextView.<a name="line.23"></a>
 <span class="sourceLineNo">024</span> * &lt;p&gt;<a name="line.24"></a>
 <span class="sourceLineNo">025</span> * The detected text token will be matched to an item of type 'Model' by the type adapter and returned in the callback.<a name="line.25"></a>
 <span class="sourceLineNo">026</span> * &lt;p&gt;<a name="line.26"></a>
 <span class="sourceLineNo">027</span> * i.e. if the user types '@johndoe' and the handle matches one of the data items in the adapter, the {@link<a name="line.27"></a>
-<span class="sourceLineNo">028</span> * #onTokenAdded(CharSequence, Object)} method from a subscribed listener will be called with that handle and the<a name="line.28"></a>
-<span class="sourceLineNo">029</span> * associated 'person' model.<a name="line.29"></a>
-<span class="sourceLineNo">030</span> *<a name="line.30"></a>
-<span class="sourceLineNo">031</span> * @author Marco Salis<a name="line.31"></a>
-<span class="sourceLineNo">032</span> * @see AutoCompleteTypeAdapter#setOnTokensChangedListener(OnTokensChangedListener)<a name="line.32"></a>
-<span class="sourceLineNo">033</span> */<a name="line.33"></a>
-<span class="sourceLineNo">034</span>public interface OnTokensChangedListener&lt;Model&gt; {<a name="line.34"></a>
-<span class="sourceLineNo">035</span><a name="line.35"></a>
-<span class="sourceLineNo">036</span>    /**<a name="line.36"></a>
-<span class="sourceLineNo">037</span>     * Called when a token associated to a data item gets fully typed by the user.<a name="line.37"></a>
-<span class="sourceLineNo">038</span>     *<a name="line.38"></a>
-<span class="sourceLineNo">039</span>     * @param token The text token that triggered the callback.<a name="line.39"></a>
-<span class="sourceLineNo">040</span>     * @param added The model bound to the token just added.<a name="line.40"></a>
-<span class="sourceLineNo">041</span>     */<a name="line.41"></a>
-<span class="sourceLineNo">042</span>    void onTokenAdded(@NonNull CharSequence token, @NonNull Model added);<a name="line.42"></a>
-<span class="sourceLineNo">043</span><a name="line.43"></a>
-<span class="sourceLineNo">044</span>    /**<a name="line.44"></a>
-<span class="sourceLineNo">045</span>     * Called when a token that was previously typed by the user gets deleted.<a name="line.45"></a>
-<span class="sourceLineNo">046</span>     *<a name="line.46"></a>
-<span class="sourceLineNo">047</span>     * @param token   The text token that got previously added.<a name="line.47"></a>
-<span class="sourceLineNo">048</span>     * @param removed The model bound to the token just removed.<a name="line.48"></a>
-<span class="sourceLineNo">049</span>     */<a name="line.49"></a>
-<span class="sourceLineNo">050</span>    void onTokenRemoved(@NonNull CharSequence token, @NonNull Model removed);<a name="line.50"></a>
-<span class="sourceLineNo">051</span><a name="line.51"></a>
-<span class="sourceLineNo">052</span>}<a name="line.52"></a>
+<span class="sourceLineNo">028</span> * #onTokenAdded(CharSequence, Object)} method from a subscribed listener will be called with that handle and the associated 'person' model.<a name="line.28"></a>
+<span class="sourceLineNo">029</span> *<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * @author Marco Salis<a name="line.30"></a>
+<span class="sourceLineNo">031</span> * @see AutoCompleteTypeAdapter#setOnTokensChangedListener(OnTokensChangedListener)<a name="line.31"></a>
+<span class="sourceLineNo">032</span> */<a name="line.32"></a>
+<span class="sourceLineNo">033</span>public interface OnTokensChangedListener&lt;Model&gt; {<a name="line.33"></a>
+<span class="sourceLineNo">034</span><a name="line.34"></a>
+<span class="sourceLineNo">035</span>    /**<a name="line.35"></a>
+<span class="sourceLineNo">036</span>     * Called when a token associated to a data item gets fully typed by the user.<a name="line.36"></a>
+<span class="sourceLineNo">037</span>     *<a name="line.37"></a>
+<span class="sourceLineNo">038</span>     * @param token The text token that triggered the callback.<a name="line.38"></a>
+<span class="sourceLineNo">039</span>     * @param added The model bound to the token just added.<a name="line.39"></a>
+<span class="sourceLineNo">040</span>     */<a name="line.40"></a>
+<span class="sourceLineNo">041</span>    void onTokenAdded(@NonNull CharSequence token, @NonNull Model added);<a name="line.41"></a>
+<span class="sourceLineNo">042</span><a name="line.42"></a>
+<span class="sourceLineNo">043</span>    /**<a name="line.43"></a>
+<span class="sourceLineNo">044</span>     * Called when a token that was previously typed by the user gets deleted.<a name="line.44"></a>
+<span class="sourceLineNo">045</span>     *<a name="line.45"></a>
+<span class="sourceLineNo">046</span>     * @param token   The text token that got previously added.<a name="line.46"></a>
+<span class="sourceLineNo">047</span>     * @param removed The model bound to the token just removed.<a name="line.47"></a>
+<span class="sourceLineNo">048</span>     */<a name="line.48"></a>
+<span class="sourceLineNo">049</span>    void onTokenRemoved(@NonNull CharSequence token, @NonNull Model removed);<a name="line.49"></a>
+<span class="sourceLineNo">050</span><a name="line.50"></a>
+<span class="sourceLineNo">051</span>}<a name="line.51"></a>
 
 
 

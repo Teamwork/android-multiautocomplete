@@ -8,7 +8,7 @@ android {
         minSdkVersion 21
         targetSdkVersion project.ext.sharedTargetSdkVersion
         versionCode 1
-        versionName "0.2.6"
+        versionName "0.3.0"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
@@ -25,7 +25,7 @@ android {
 
 dependencies {
     api project(path: ':multiautocomplete')
-    // api "com.teamwork:android-multiautocomplete:0.2.6"
+    // api "com.teamwork:android-multiautocomplete:x.x.x"
 
     api "androidx.appcompat:appcompat:${versions.androidx.appCompat}"
     api "com.google.android.material:material:${versions.androidx.material}"

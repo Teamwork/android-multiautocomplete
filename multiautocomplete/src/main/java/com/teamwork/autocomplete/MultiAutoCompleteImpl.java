@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Teamwork.com
+ * Copyright 2017-present Teamwork.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * {@link MultiAutoComplete} concrete implementation for a {@link MultiAutoCompleteEditText} auto complete feature with
- * drop down.
+ * {@link MultiAutoComplete} concrete implementation for a {@link MultiAutoCompleteEditText} auto complete feature with drop down.
  * It manages a list of {@link TypeAdapterDelegate}s through a single "adapter of adapters".
  *
  * @author Marco Salis
@@ -44,14 +43,14 @@ class MultiAutoCompleteImpl
         implements MultiAutoComplete, TextWatcher, MultiAutoCompleteEditText.OnSelectionChangedListener {
 
     private final Tokenizer tokenizer;
-    private final List<TypeAdapterDelegate> typeAdapters;
+    private final List<TypeAdapterDelegate<?>> typeAdapters;
     private final @Nullable Delayer delayer;
 
     private @Nullable MultiAutoCompleteEditText editText;
     private @Nullable AutoCompleteAdapter adapter;
 
     MultiAutoCompleteImpl(@NonNull Tokenizer tokenizer,
-                          @NonNull List<TypeAdapterDelegate> typeAdapters,
+                          @NonNull List<TypeAdapterDelegate<?>> typeAdapters,
                           @Nullable Delayer delayer) {
         this.tokenizer = tokenizer;
         this.typeAdapters = Collections.unmodifiableList(new CopyOnWriteArrayList<>(typeAdapters));
@@ -70,14 +69,14 @@ class MultiAutoCompleteImpl
 
         adapter.registerDataSetObserver(dataSetObserver);
 
-        for (TypeAdapterDelegate adapter : typeAdapters) {
+        for (TypeAdapterDelegate<?> adapter : typeAdapters) {
             adapter.registerDataSetObserver(delegateDataSetObserver);
         }
     }
 
     @Override
     public void onViewDetached() {
-        for (TypeAdapterDelegate adapter : typeAdapters) {
+        for (TypeAdapterDelegate<?> adapter : typeAdapters) {
             adapter.unregisterDataSetObserver(delegateDataSetObserver);
         }
 
@@ -113,7 +112,7 @@ class MultiAutoCompleteImpl
     @Override
     @CallSuper
     public void afterTextChanged(Editable s) {
-        for (TypeAdapterDelegate typeAdapter : typeAdapters) {
+        for (TypeAdapterDelegate<?> typeAdapter : typeAdapters) {
             typeAdapter.onTextChanged(s.toString());
         }
     }
@@ -124,7 +123,8 @@ class MultiAutoCompleteImpl
     }
 
     private final DataSetObserver dataSetObserver = new DataSetObserver() {
-        @Override public void onChanged() {
+        @Override
+        public void onChanged() {
             if (editText != null && adapter != null && !adapter.isEmpty()) {
                 // reset selection on first filtered item
                 editText.setListSelection(0);
@@ -133,7 +133,8 @@ class MultiAutoCompleteImpl
     };
 
     private final DataSetObserver delegateDataSetObserver = new DataSetObserver() {
-        @Override public void onChanged() {
+        @Override
+        public void onChanged() {
             if (adapter != null) {
                 // notify main adapter that one of the type adapters data has changed
                 adapter.notifyDataSetChanged();
