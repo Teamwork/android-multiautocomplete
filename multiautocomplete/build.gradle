@@ -1,25 +1,15 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.github.panpf.bintray-publish'
+apply plugin: 'com.vanniktech.maven.publish'
 
 buildscript {
     repositories {
         jcenter()
         mavenCentral()
-        maven {
-            url "http://jcenter.bintray.com"
-        }
     }
     dependencies {
-        // TODO: look into Studio Maven publish plugin https://developer.android.com/studio/build/maven-publish-plugin
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        // classpath 'com.novoda:bintray-release:0.9' // note: 0.9.2 not working with Gradle 6+
-        // https://github.com/panpf/bintray-publish - fixes Novoda lib with Gradle 6+
-        classpath 'com.github.panpf.bintray-publish:bintray-publish:1.0.0'
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.14.2'
     }
 }
-
-def libraryVersion = "0.3.0"
 
 android {
     compileSdkVersion project.ext.sharedCompileSdkVersion
@@ -29,7 +19,7 @@ android {
         minSdkVersion project.ext.sharedMinSdkVersion
         targetSdkVersion project.ext.sharedTargetSdkVersion
         versionCode 1
-        versionName libraryVersion
+        versionName VERSION_NAME
 
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
@@ -56,92 +46,4 @@ dependencies {
     testImplementation "junit:junit:${versions.junit}"
     testImplementation "org.mockito:mockito-core:${versions.mockito}"
     testImplementation "org.robolectric:robolectric:${versions.robolectric}"
-}
-
-def siteUrl = 'https://github.com/Teamwork/android-multiautocomplete'
-def gitUrl = 'https://github.com/Teamwork/android-multiautocomplete.git'
-def groupIdStr = 'com.teamwork'
-def artifactIdStr = 'android-multiautocomplete'
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-/**
- * To publish to Bintray Maven:
- * ./gradlew clean build generateFullPom bintrayUpload
- * More info at: https://github.com/novoda/bintray-release
- */
-publish {
-    userOrg = 'teamwork'
-    groupId = groupIdStr
-    repoName = groupIdStr
-    artifactId = artifactIdStr
-    uploadName = artifactIdStr
-    publishVersion = libraryVersion
-    desc = 'MultiAutoCompleteTextView and Tokenizer utility library'
-    website = siteUrl
-    licences = ['Apache 2.0']
-    dryRun = false
-
-    bintrayUser = properties.getProperty("bintray.user")
-    bintrayKey = properties.getProperty("bintray.apikey")
-}
-
-task generateFullPom {
-    doLast {
-        pom {
-            project {
-                packaging 'aar'
-                artifactId artifactIdStr
-                groupId = groupIdStr
-                version libraryVersion
-
-                url siteUrl
-
-                licenses {
-                    license {
-                        name 'Apache-2.0'
-                        url 'https://opensource.org/licenses/Apache-2.0'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'tw-marco-salis'
-                        name 'Marco Salis'
-                        email 'marco.salis@teamwork.com'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
-            }
-        }.writeTo("$buildDir/publications/release/pom-default.xml")
-    }
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    destinationDir = file("../docs")
-    title = "Android AutoComplete 0.3"
-    options.linkSource true
-    options.optionFiles << file('javadoc.options')
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.javadocDeps
-    failOnError false
-}
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-artifacts {
-    archives javadocJar
-    archives sourcesJar
 }

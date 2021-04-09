@@ -47,6 +47,8 @@ ext {
     ]
 }
 
+apply from: 'credentials.gradle'
+
 allprojects {
     repositories {
         jcenter()
