@@ -1,7 +1,5 @@
 # Android MultiAutoComplete
 
-[ ![Download](https://api.bintray.com/packages/teamwork/com.teamwork/android-multiautocomplete/images/download.svg) ](https://bintray.com/teamwork/com.teamwork/android-multiautocomplete/_latestVersion)
-
 A library that provides a layer of abstraction over the Android `MultiAutoCompleteTextView` standard component,
 to simplify showing a drop down menu with suggestions for auto complete when the user is typing into an editable text view.
 
@@ -34,16 +32,19 @@ Using **MultiAutoComplete** can be as easy as this:
 * (coming soon) Ability to easily swap between `AutoCompleteTextView` and `MultiAutoCompleteTextView`
 
 ## Download
+Due to the announced shutdown of JCenter this library has been migrated to [Maven Central](https://search.maven.org/search?q=g:com.teamwork.multiautocomplete%20AND%20a:android-multiautocomplete) repository.
+**At the same time its Group ID has been changed from `com.teamwork` to `com.teamwork.multiautocomplete`**.
+
 Add dependency via **Gradle**:
 ```groovy
-compile 'com.teamwork:android-multiautocomplete:0.3.0'
+implementation 'com.teamwork.multiautocomplete:android-multiautocomplete:0.4.0'
 ```
 or **Maven**:
 ```xml
 <dependency>
-  <groupId>com.teamwork</groupId>
+  <groupId>com.teamwork.multiautocomplete</groupId>
   <artifactId>android-multiautocomplete</artifactId>
-  <version>0.2.6</version>
+  <version>0.4.0</version>
   <type>pom</type>
 </dependency>
 ```
