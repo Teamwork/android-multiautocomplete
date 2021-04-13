@@ -49,6 +49,21 @@ or **Maven**:
 </dependency>
 ```
 
+##### Previous versions of the library can still be found on Bintray (complete shutdown is planned on February 2022).
+Add dependency via **Gradle** (please note the different `groupId`):
+```groovy
+compile 'com.teamwork:android-multiautocomplete:0.3.0'
+```
+or **Maven**:
+```xml
+<dependency>
+  <groupId>com.teamwork</groupId>
+  <artifactId>android-multiautocomplete</artifactId>
+  <version>0.3.0</version>
+  <type>pom</type>
+</dependency>
+```
+
 ## Documentation
 Javadoc documentation is available here: https://teamwork.github.io/android-multiautocomplete/
 
