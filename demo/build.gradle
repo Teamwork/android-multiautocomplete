@@ -25,7 +25,7 @@ android {
 
 dependencies {
     api project(path: ':multiautocomplete')
-    // api "com.teamwork:android-multiautocomplete:x.x.x"
+//    api "com.teamwork.multiautocomplete:android-multiautocomplete:${VERSION_NAME}"
 
     api "androidx.appcompat:appcompat:${versions.androidx.appCompat}"
     api "com.google.android.material:material:${versions.androidx.material}"
